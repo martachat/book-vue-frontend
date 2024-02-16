@@ -1,0 +1,21 @@
+.home_page{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+.container_home{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    padding: 10px;
+}
+
+.container_home img{
+    height: 200px;
+    width: 200px;
+    object-fit: contain;
+}
+
+.home_text{
+    max-width: 250px;
+}
