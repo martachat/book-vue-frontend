@@ -8,7 +8,7 @@ function HomePage() {
   const [author, setAuthor] = useState();
   useEffect(() => {
     axios
-      .get("http://localhost:5005/books")
+      .get("http://localhost:5005/books?_expand=author")
       .then((books) => {
         console.log(books.data);
         setBooks(books.data);
@@ -21,19 +21,7 @@ function HomePage() {
     return str.length > 60 ? str.substring(0, 60) + "..." : str;
   }
 
-  useEffect(() => {
-    books.map((book) => {
-      axios
-        .get(`http://localhost:5005/authors/${book.authorId}`)
-        .then((author) => {
-          console.log(author.data);
-          setAuthor(author.data);
-        })
-        .catch((e) => {
-          console.log(e);
-        });
-    });
-  }, [books]);
+  
   function handleSearch(e) {
     const query = e.target.value;
     axios
@@ -67,12 +55,12 @@ function HomePage() {
                     ></img>
                     <div className="home_text">
                       <h4>{book.title}</h4>
-                      {author && (
+                      
                         <p>
                           {" "}
-                          By <strong>{author.name}</strong>
+                          By <strong>{book.author.name}</strong>
                         </p>
-                      )}
+                      
                       <p>{truncate(book.description)}</p>
                     </div>
                   </div>
