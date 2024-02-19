@@ -5,6 +5,7 @@ import Navbar from "./components/Navbar";
 import BookDetailsPage from "./Pages/BookDetailsPage";
 import AuthorDetailsPage from "./Pages/AuthorDetailsPage";
 import GenreDetailsPage from "./Pages/GenreDetailsPage";
+import PublisherDetailsPage from "./Pages/PublisherDetailsPage";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/books/:id" element={<BookDetailsPage />}></Route>
         <Route path="/authors/:id" element={<AuthorDetailsPage />}></Route>
         <Route path="/genres/:id" element={<GenreDetailsPage />}></Route>
+        <Route path="/publishers/:id" element={<PublisherDetailsPage />}></Route>
       </Routes>
     </div>
   );
