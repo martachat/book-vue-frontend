@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 function BookDetailsPage() {
   const { id } = useParams();
@@ -70,10 +70,14 @@ function BookDetailsPage() {
             style={{ maxWidth: '300px', maxHeight: '300px' }}
           />
           <h2>{bookDetails.title}</h2>
+          <Link to={`/authors/${authorDetails.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
           <p>By {authorDetails.name}</p>
+          </Link>
           <p>{bookDetails.description}</p>
           <h3>Genre</h3>
+          <Link to={`/genres/${genreDetails.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
           <p>{genreDetails.name}</p>
+          </Link>
           <table>
             <tbody>
               <tr>
@@ -82,7 +86,9 @@ function BookDetailsPage() {
               </tr>
               <tr>
                 <th>Publisher:</th>
+                <Link to={`/publishers/${publisherDetails.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
                 <td>{publisherDetails.name}</td>
+                </Link>
               </tr>
               <tr>
                 <th>Publication Date:</th>

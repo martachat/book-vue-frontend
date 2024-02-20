@@ -6,6 +6,8 @@ import { Link } from "react-router-dom";
 function HomePage() {
   const [books, setBooks] = useState([]);
   const [author, setAuthor] = useState();
+  const [searchQuery, setSearchQuery] = useState('');
+
   useEffect(() => {
     axios
       .get("http://localhost:5005/books?_expand=author")
@@ -16,36 +18,43 @@ function HomePage() {
       .catch((e) => {
         console.log(e);
       });
-  }, []);
-  function truncate(str) {
-    return str.length > 60 ? str.substring(0, 60) + "..." : str;
-  }
 
-  
-  function handleSearch(e) {
-    const query = e.target.value;
-    axios
-      .get(`http://localhost:5005/books?q=${query}`)
-      .then((responseSearch) => {
-        setBooks(responseSearch.data);
+      axios
+      .get('http://localhost:5005/authors')
+      .then((authorsResponse) => {
+        setAuthor(authorsResponse.data);
       })
       .catch((e) => {
         console.log(e);
       });
+  }, []);
+ 
+  const filteredBooks = books.filter((book) =>
+  book.title.toLowerCase().startsWith(searchQuery.toLowerCase())
+);
+
+  function truncate(str) {
+    return str.length > 60 ? str.substring(0, 60) + "..." : str;
   }
+
+  function handleSearch(e) {
+    setSearchQuery(e.target.value);
+  }
+
   return (
     <div>
       <input
         type="text"
         className="search"
         placeholder="Search"
+        value={searchQuery}
         onChange={handleSearch}
       ></input>
       <div className="home_page">
-        {books.map((book) => {
+        {filteredBooks.map((book) => {
           {
             return (
-              <Link to={`/`} key={book.id} className="container_home">
+              <Link to={`/books/${book.id}`} key={book.id} className="container_home">
                 {book ? (
                   <div className="container_home">
                     <img
@@ -55,12 +64,13 @@ function HomePage() {
                     ></img>
                     <div className="home_text">
                       <h4>{book.title}</h4>
-                      
-                        <p>
-                          {" "}
-                          By <strong>{book.author.name}</strong>
-                        </p>
-                      
+                      {book.author ? (
+                      <Link to={`/authors/${book.author.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+                      <p>By <strong>{book.author.name}</strong></p>
+                    </Link>
+                  ) : (
+                    <p>Author information not available</p>
+                  )}
                       <p>{truncate(book.description)}</p>
                     </div>
                   </div>

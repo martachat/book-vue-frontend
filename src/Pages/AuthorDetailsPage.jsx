@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 function AuthorDetailsPage() {
   const { id } = useParams();
@@ -34,12 +34,14 @@ function AuthorDetailsPage() {
             <ul style={{ listStyleType: 'none', padding: 0 }}>
               {authorBooks.map((book) => (
                 <li key={book.id}>
+                <Link to={`/books/${book.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
                   <img
                     src={book.image}
                     alt={book.title}
                     style={{ maxWidth: '100px', maxHeight: '100px', marginRight: '10px' }}
                   />
                   <strong>{book.title}</strong> 
+                  </Link>
                 </li>
               ))}
             </ul>

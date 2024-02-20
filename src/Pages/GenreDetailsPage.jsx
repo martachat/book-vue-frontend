@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 function GenreDetailsPage() {
 
@@ -45,12 +45,17 @@ function GenreDetailsPage() {
                 <ul style={{ listStyleType: 'none', padding: 0 }}>
                   {genreBooks.map((book) => (
                     <li key={book.id}>
+                    <Link to={`/books/${book.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
                       <img
                         src={book.image}
                         alt={book.title}
                         style={{ maxWidth: '50px', maxHeight: '50px', marginRight: '10px' }}
                       />
-                      <strong>{book.title}</strong> - {book.author}
+                    <strong>{book.title}</strong> - {' '}
+                    <Link to={`/authors/${book.authorId}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+                      {book.author}
+                    </Link>
+                  </Link>
                     </li>
                   ))}
                 </ul>
