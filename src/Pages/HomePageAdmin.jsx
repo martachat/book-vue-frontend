@@ -18,15 +18,6 @@ function HomePage() {
       .catch((e) => {
         console.log(e);
       });
-
-    axios
-      .get('http://localhost:5005/authors')
-      .then((authorsResponse) => {
-        setAuthor(authorsResponse.data);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
   }, []);
 
   const filteredBooks = books.filter((book) =>
@@ -48,7 +39,7 @@ function HomePage() {
         .delete(`http://localhost:5005/books/${bookId}`)
         .then(() => {
           console.log(`Book with ID ${bookId} deleted successfully`);
-          navigate('/');
+          navigate('/admin');
         })
         .catch((error) => {
           console.error(`Error deleting book with ID ${bookId}`, error);

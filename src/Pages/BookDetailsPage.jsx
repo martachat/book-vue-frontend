@@ -5,54 +5,12 @@ import { Link, useParams } from 'react-router-dom';
 function BookDetailsPage() {
   const { id } = useParams();
   const [bookDetails, setBookDetails] = useState(null);
-  const [authorDetails, setAuthorDetails] = useState(null);
-  const [genreDetails, setGenreDetails] = useState(null);
-  const [languageDetails, setLanguageDetails] = useState(null);
-  const [publisherDetails, setPublisherDetails] = useState(null);
 
   useEffect(() => {
-    axios.get(`http://localhost:5005/books/${id}`)
+    axios.get(`http://localhost:5005/books/${id}?_expand=author&_expand=publisher&_expand=genre&_expand=language`)
       .then((response) => {
+        console.log(response.data)
         setBookDetails(response.data);
-
-        const authorId = response.data.authorId;
-        axios.get(`http://localhost:5005/authors/${authorId}`)
-          .then((authorResponse) => {
-            setAuthorDetails(authorResponse.data);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-
-        const genreId = response.data.genreId;
-        axios.get(`http://localhost:5005/genres/${genreId}`)
-          .then((genreResponse) => {
-            setGenreDetails(genreResponse.data);
-            console.log(genreResponse.data);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-
-        const languageId = response.data.languageId;
-        axios.get(`http://localhost:5005/languages/${languageId}`)
-          .then((languageResponse) => {
-            setLanguageDetails(languageResponse.data);
-            console.log(languageResponse.data);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-
-        const publisherId = response.data.publisherId;
-        axios.get(`http://localhost:5005/publishers/${publisherId}`)
-          .then((publisherResponse) => {
-            setPublisherDetails(publisherResponse.data);
-            console.log(publisherResponse.data);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
       })
       .catch((error) => {
         console.log(error);
@@ -62,7 +20,7 @@ function BookDetailsPage() {
 
   return (
     <div>
-      {bookDetails && authorDetails && genreDetails && languageDetails && publisherDetails ? (
+      {bookDetails ? (
         <>
           <img
             src={bookDetails.image}
@@ -70,26 +28,30 @@ function BookDetailsPage() {
             style={{ maxWidth: '300px', maxHeight: '300px' }}
           />
           <h2>{bookDetails.title}</h2>
-          <Link to={`/authors/${authorDetails.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-          <p>By {authorDetails.name}</p>
+          <Link to={`/authors/${bookDetails.author.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+          <p>By {bookDetails.author.name}</p>
           </Link>
+
           <p>{bookDetails.description}</p>
+
           <h3>Genre</h3>
-          <Link to={`/genres/${genreDetails.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-          <p>{genreDetails.name}</p>
+          <Link to={`/genres/${bookDetails.genre.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+          <p>{bookDetails.genre.name}</p>
           </Link>
           <table>
             <tbody>
-              <tr>
+               <tr>
                 <th>Language:</th>
-                <td>{languageDetails.name}</td>
-              </tr>
-              <tr>
+                <td>{bookDetails.language.name}</td>
+              </tr> 
+               <tr>
                 <th>Publisher:</th>
-                <Link to={`/publishers/${publisherDetails.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-                <td>{publisherDetails.name}</td>
+                <td>
+                <Link to={`/publishers/${bookDetails.publisher.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+                {bookDetails.publisher.name}
                 </Link>
-              </tr>
+                </td>
+              </tr> 
               <tr>
                 <th>Publication Date:</th>
                 <td>{bookDetails.publicationDate}</td>

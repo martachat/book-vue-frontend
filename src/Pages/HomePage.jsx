@@ -2,11 +2,12 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import "./HomePage.css";
 import { Link } from "react-router-dom";
+import Banner from "../components/Banner";
 
 function HomePage() {
   const [books, setBooks] = useState([]);
-  const [author, setAuthor] = useState();
   const [searchQuery, setSearchQuery] = useState('');
+  const [filterOption, setFilterOption] = useState('book');
 
   useEffect(() => {
     axios
@@ -18,20 +19,12 @@ function HomePage() {
       .catch((e) => {
         console.log(e);
       });
-
-      axios
-      .get('http://localhost:5005/authors')
-      .then((authorsResponse) => {
-        setAuthor(authorsResponse.data);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
   }, []);
  
-  const filteredBooks = books.filter((book) =>
-  book.title.toLowerCase().startsWith(searchQuery.toLowerCase())
-);
+  const filteredItems = books.filter((item) => {
+    const searchTarget = filterOption === 'book' ? item.title.toLowerCase() : (item.author && item.author.name.toLowerCase());
+    return searchTarget && searchTarget.startsWith(searchQuery.toLowerCase());
+  });
 
   function truncate(str) {
     return str.length > 60 ? str.substring(0, 60) + "..." : str;
@@ -41,46 +34,49 @@ function HomePage() {
     setSearchQuery(e.target.value);
   }
 
+  function handleFilterOptionChange(e) {
+    setFilterOption(e.target.value);
+  }
+
   return (
     <div>
-      <input
-        type="text"
-        className="search"
-        placeholder="Search"
-        value={searchQuery}
-        onChange={handleSearch}
-      ></input>
+     <Banner />
+      <div>
+        <input
+          type="text"
+          className="search"
+          placeholder="Search"
+          value={searchQuery}
+          onChange={handleSearch}
+        />
+        <select value={filterOption} onChange={handleFilterOptionChange}>
+          <option value="book">Search by Book</option>
+          <option value="author">Search by Author</option>
+        </select>
+      </div>
       <div className="home_page">
-        {filteredBooks.map((book) => {
-          {
-            return (
-              <Link to={`/books/${book.id}`} key={book.id} className="container_home">
-                {book ? (
-                  <div className="container_home">
-                    <img
-                      src={book.image}
-                      alt={book.title}
-                      width={"300px"}
-                    ></img>
-                    <div className="home_text">
-                      <h4>{book.title}</h4>
-                      {book.author ? (
-                      <Link to={`/authors/${book.author.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-                      <p>By <strong>{book.author.name}</strong></p>
-                    </Link>
-                  ) : (
-                    <p>Author information not available</p>
-                  )}
-                      <p>{truncate(book.description)}</p>
-                    </div>
-                  </div>
+        {filteredItems.map((item) => (
+          <Link to={`/books/${item.id}`} key={item.id} className="container_home">
+            <div className="container_home">
+              <img
+                src={item.image}
+                alt={item.title}
+                width={"300px"}
+              ></img>
+              <div className="home_text">
+                <h4>{item.title}</h4>
+                {item.author ? (
+                  <Link to={`/authors/${item.author.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+                    <p>By <strong>{item.author.name}</strong></p>
+                  </Link>
                 ) : (
-                  <p>Loading...</p>
+                  <p>Author information not available</p>
                 )}
-              </Link>
-            );
-          }
-        })}
+                <p>{truncate(item.description)}</p>
+              </div>
+            </div>
+          </Link>
+        ))}
       </div>
     </div>
   );
