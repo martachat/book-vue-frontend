@@ -8,7 +8,7 @@ import GenreDetailsPage from "./Pages/GenreDetailsPage";
 import PublisherDetailsPage from "./Pages/PublisherDetailsPage";
 import HomePageAdmin from "./Pages/HomePageAdmin";
 import EditBookPage from "./Pages/EditBookPage";
-import CreateNewBook from "./Pages/CreateNewBook";
+import CreateNewBook from "./Pages/CreateBook/CreateNewBook";
 
 function App() {
   return (
@@ -19,7 +19,10 @@ function App() {
         <Route path="/books/:id" element={<BookDetailsPage />}></Route>
         <Route path="/authors/:id" element={<AuthorDetailsPage />}></Route>
         <Route path="/genres/:id" element={<GenreDetailsPage />}></Route>
-        <Route path="/publishers/:id" element={<PublisherDetailsPage />}></Route>
+        <Route
+          path="/publishers/:id"
+          element={<PublisherDetailsPage />}
+        ></Route>
         <Route path="/admin" element={<HomePageAdmin />}></Route>
         <Route path="/books/:id/edit" element={<EditBookPage />}></Route>
         <Route path="/books/create" element={<CreateNewBook />}></Route>

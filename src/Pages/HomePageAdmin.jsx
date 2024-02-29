@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 function HomePage() {
   const [books, setBooks] = useState([]);
   const [author, setAuthor] = useState();
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     axios
@@ -33,13 +33,15 @@ function HomePage() {
   }
 
   const handleDeleteBook = (bookId) => {
-    const confirmDelete = window.confirm("Are you sure you want to delete this book?");
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this book?"
+    );
     if (confirmDelete) {
       axios
         .delete(`http://localhost:5005/books/${bookId}`)
         .then(() => {
           console.log(`Book with ID ${bookId} deleted successfully`);
-          navigate('/admin');
+          navigate("/admin");
         })
         .catch((error) => {
           console.error(`Error deleting book with ID ${bookId}`, error);
@@ -58,15 +60,20 @@ function HomePage() {
       />
       <div className="home_page">
         {filteredBooks.map((book) => (
-          <Link to={`/books/${book.id}`} key={book.id} className="container_home">
+          <div key={book.id} className="container_home">
             {book ? (
               <div className="container_home">
                 <img src={book.image} alt={book.title} width={"300px"} />
                 <div className="home_text">
-                  <h4>{book.title}</h4>
+                  <Link to={`/books/${book.id}`} className="link">
+                    {" "}
+                    <h4>{book.title}</h4>
+                  </Link>
                   {book.author ? (
-                    <Link to={`/authors/${book.author.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-                      <p>By <strong>{book.author.name}</strong></p>
+                    <Link to={`/authors/${book.author.id}`} className="link">
+                      <p>
+                        By <strong>{book.author.name}</strong>
+                      </p>
                     </Link>
                   ) : (
                     <p>Author information not available</p>
@@ -75,17 +82,25 @@ function HomePage() {
                 </div>
                 <div className="edit-delete-buttons">
                   <Link to={`/books/${book.id}/edit`}>
-                  <button>Edit Book</button>
+                    <button className="btn-home">Edit Book</button>
                   </Link>
-                  <button onClick={() => handleDeleteBook(book.id)}>Delete Book</button>
+                  <button
+                    onClick={() => handleDeleteBook(book.id)}
+                    className="btn-home"
+                  >
+                    Delete Book
+                  </button>
                 </div>
               </div>
             ) : (
               <p>Loading...</p>
             )}
-          </Link>
+          </div>
         ))}
       </div>
+      <Link to={"http://localhost:5173/books/create"}>
+        <button className="add-new-book">+</button>
+      </Link>
     </div>
   );
 }

@@ -1,28 +1,31 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import "./HomePage.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Banner from "../components/Banner";
 
 function HomePage() {
   const [books, setBooks] = useState([]);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [filterOption, setFilterOption] = useState('book');
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filterOption, setFilterOption] = useState("book");
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios
       .get("http://localhost:5005/books?_expand=author")
       .then((books) => {
-        console.log(books.data);
         setBooks(books.data);
       })
       .catch((e) => {
         console.log(e);
       });
   }, []);
- 
+
   const filteredItems = books.filter((item) => {
-    const searchTarget = filterOption === 'book' ? item.title.toLowerCase() : (item.author && item.author.name.toLowerCase());
+    const searchTarget =
+      filterOption === "book"
+        ? item.title.toLowerCase()
+        : item.author && item.author.name.toLowerCase();
     return searchTarget && searchTarget.startsWith(searchQuery.toLowerCase());
   });
 
@@ -40,7 +43,7 @@ function HomePage() {
 
   return (
     <div>
-     <Banner />
+      <Banner />
       <div>
         <input
           type="text"
@@ -56,26 +59,28 @@ function HomePage() {
       </div>
       <div className="home_page">
         {filteredItems.map((item) => (
-          <Link to={`/books/${item.id}`} key={item.id} className="container_home">
+          <div key={item.id} className="container_home">
             <div className="container_home">
-              <img
-                src={item.image}
-                alt={item.title}
-                width={"300px"}
-              ></img>
+              <img src={item.image} alt={item.title} width={"300px"}></img>
               <div className="home_text">
-                <h4>{item.title}</h4>
+                <Link to={`/books/${item.id}`} className="link">
+                  <h4>{item.title}</h4>{" "}
+                </Link>
                 {item.author ? (
-                  <Link to={`/authors/${item.author.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-                    <p>By <strong>{item.author.name}</strong></p>
-                  </Link>
+                  <div style={{ textDecoration: "none", color: "inherit" }}>
+                    <Link to={`/authors/${item.author.id}`} className="link">
+                      <p>
+                        By <strong>{item.author.name}</strong>
+                      </p>
+                    </Link>
+                  </div>
                 ) : (
                   <p>Author information not available</p>
                 )}
                 <p>{truncate(item.description)}</p>
               </div>
             </div>
-          </Link>
+          </div>
         ))}
       </div>
     </div>
