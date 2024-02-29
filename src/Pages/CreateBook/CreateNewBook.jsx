@@ -53,8 +53,11 @@ function CreateNewBook() {
     const newAothur = { name: inputValue };
     axios
       .post("http://localhost:5005/authors", newAothur)
-      .then((res) => {
-        console.log(res.data);
+      .then(() => {
+        return axios.get("http://localhost:5005/authors");
+      })
+      .then((authors) => {
+        setAuthors(authors.data);
       })
       .catch((err) => {
         console.log(err);
@@ -67,8 +70,11 @@ function CreateNewBook() {
     const newPublisher = { name: inputValue };
     axios
       .post("http://localhost:5005/publishers", newPublisher)
-      .then((res) => {
-        console.log(res.data);
+      .then(() => {
+        return axios.get("http://localhost:5005/publishers");
+      })
+      .then((publishers) => {
+        setPublishers(publishers.data);
       })
       .catch((err) => {
         console.log(err);
@@ -101,6 +107,7 @@ function CreateNewBook() {
         console.log(err);
       });
   }, []);
+
   function handleSubmit(e) {
     e.preventDefault();
     const newBook = {
