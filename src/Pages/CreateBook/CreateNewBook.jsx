@@ -52,9 +52,12 @@ function CreateNewBook() {
     console.log("Sending:", inputValue);
     const newAothur = { name: inputValue };
     axios
-      .post("http://localhost:5005/authors", newAothur)
-      .then((res) => {
-        console.log(res.data);
+      .post("https://book-vue-backend.onrender.com/authors", newAothur)
+      .then(() => {
+        return axios.get("https://book-vue-backend.onrender.com/authors");
+      })
+      .then((authors) => {
+        setAuthors(authors.data);
       })
       .catch((err) => {
         console.log(err);
@@ -66,9 +69,12 @@ function CreateNewBook() {
     console.log("Sending:", inputValue);
     const newPublisher = { name: inputValue };
     axios
-      .post("http://localhost:5005/publishers", newPublisher)
-      .then((res) => {
-        console.log(res.data);
+      .post("https://book-vue-backend.onrender.com/publishers", newPublisher)
+      .then(() => {
+        return axios.get("https://book-vue-backend.onrender.com/publishers");
+      })
+      .then((publishers) => {
+        setPublishers(publishers.data);
       })
       .catch((err) => {
         console.log(err);
@@ -86,8 +92,8 @@ function CreateNewBook() {
   useEffect(() => {
     axios
       .all([
-        axios.get("http://localhost:5005/authors"),
-        axios.get("http://localhost:5005/publishers"),
+        axios.get("https://book-vue-backend.onrender.com/authors"),
+        axios.get("https://book-vue-backend.onrender.com/publishers"),
       ])
       .then(
         axios.spread((res1, res2) => {
@@ -101,6 +107,7 @@ function CreateNewBook() {
         console.log(err);
       });
   }, []);
+
   function handleSubmit(e) {
     e.preventDefault();
     const newBook = {
@@ -117,7 +124,7 @@ function CreateNewBook() {
     };
 
     axios
-      .post("http://localhost:5005/books", newBook)
+      .post("https://book-vue-backend.onrender.com/books", newBook)
       .then((response) => {
         console.log(response.data);
       })

@@ -7,7 +7,7 @@ function BookDetailsPage() {
   const [bookDetails, setBookDetails] = useState(null);
 
   useEffect(() => {
-    axios.get(`http://localhost:5005/books/${id}?_expand=author&_expand=publisher&_expand=genre&_expand=language`)
+    axios.get(`https://book-vue-backend.onrender.com/books/${id}?_expand=author&_expand=publisher&_expand=genre&_expand=language`)
       .then((response) => {
         console.log(response.data)
         setBookDetails(response.data);

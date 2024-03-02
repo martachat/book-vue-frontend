@@ -41,7 +41,7 @@ function EditBookPage() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5005/books/${id}`)
+      .get(`https://book-vue-backend.onrender.com/books/${id}`)
       .then((response) => {
         setBook(response.data);
         setNewBookData({
@@ -62,7 +62,7 @@ function EditBookPage() {
       });
 
     axios
-      .get("http://localhost:5005/authors")
+      .get("https://book-vue-backend.onrender.com/authors")
       .then((response) => {
         setAuthors(response.data);
       })
@@ -72,7 +72,7 @@ function EditBookPage() {
 
 
   axios
-  .get("http://localhost:5005/publishers")
+  .get("https://book-vue-backend.onrender.com/publishers")
   .then((response) => {
     setPublishers(response.data);
   })
@@ -91,7 +91,7 @@ function EditBookPage() {
 
   const handleAuthorSearch = (searchTerm) => {
     axios
-      .get(`http://localhost:5005/authors?q=${searchTerm}`)
+      .get(`https://book-vue-backend.onrender.com/authors?q=${searchTerm}`)
       .then((response) => {
         setAuthors(response.data);
       })
@@ -102,7 +102,7 @@ function EditBookPage() {
 
   const handlePublisherSearch = (searchTerm) => {
     axios
-      .get(`http://localhost:5005/publishers?q=${searchTerm}`)
+      .get(`https://book-vue-backend.onrender.com/publishers?q=${searchTerm}`)
       .then((response) => {
         setPublishers(response.data);
       })
@@ -114,7 +114,7 @@ function EditBookPage() {
   const handleEditBook = () => {
     if (isNaN(newBookData.authorId)) {
       axios
-        .post("http://localhost:5005/authors", { name: newBookData.authorId })
+        .post("https://book-vue-backend.onrender.com/authors", { name: newBookData.authorId })
         .then((newAuthorResponse) => {
           const newAuthorId = newAuthorResponse.data.id;
           updateBook(newAuthorId);
@@ -129,7 +129,7 @@ function EditBookPage() {
 
   const updateBook = (authorId) => {
     axios
-      .put(`http://localhost:5005/books/${id}`, {
+      .put(`https://book-vue-backend.onrender.com/books/${id}`, {
         ...newBookData,
         authorId: authorId,
       })

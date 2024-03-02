@@ -8,12 +8,12 @@ function AuthorDetailsPage() {
   const [authorBooks, setAuthorBooks] = useState([]);
 
   useEffect(() => {
-    axios.get(`http://localhost:5005/authors/${id}`)
+    axios.get(`https://book-vue-backend.onrender.com/authors/${id}`)
       .then((response) => {
         setAuthorDetails(response.data);
         console.log(response.data);
 
-        return axios.get(`http://localhost:5005/books`);
+        return axios.get(`https://book-vue-backend.onrender.com/books`);
       })
       .then((booksResponse) => {
         const authorBooks = booksResponse.data.filter(book => book.authorId === Number(id));

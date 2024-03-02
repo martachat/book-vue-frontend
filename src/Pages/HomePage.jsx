@@ -13,7 +13,7 @@ function HomePage() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5005/books?_expand=author")
+      .get("https://book-vue-backend.onrender.com/books?_expand=author")
       .then((books) => {
         setBooks(books.data);
       })

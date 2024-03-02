@@ -36,30 +36,74 @@ const quotesData = [
         quote: "If I read a book and it makes my whole body so cold no fire can ever warm me, I know that is poetry.",
         author: "Emily Dickinson",
         image: "https://poets.org/sites/default/files/images/biographies/155_EmilyDickinsonSmall.jpg"
-    }
+    },
+    {
+      quote: "Great literature is simply language charged with meaning to the utmost possible degree.",
+      author: "Ezra Pound",
+      image: "https://upload.wikimedia.org/wikipedia/en/thumb/4/43/Ezra_Pound_by_Alvin_Langdon_Coburn%2C_1913.jpg/440px-Ezra_Pound_by_Alvin_Langdon_Coburn%2C_1913.jpg"
+  },
   ];
+  const myIndex= 0
+  const Banner = () => {
+    const [quoteIndex, setQuoteIndex] = useState(0);
+    const [currentQuote, setCurrentQuote] = useState(quotesData[quoteIndex]);
 
-const Banner = () => {
-  const [quoteIndex, setQuoteIndex] = useState(0);
-  const [currentQuote, setCurrentQuote] = useState(quotesData[quoteIndex]);
+    const currentIndex = quoteIndex
 
   useEffect(() => {
-    const intervalId = setInterval(() => {
-      setQuoteIndex((prevIndex) => (prevIndex + 1) % quotesData.length);
-    }, 8000);
+
+          // Transition on component mount - Make sure to move both img and text at the same time (Is opacity an ok criteria?)
+          document.querySelector(".container").style.opacity = 1;
+          document.querySelector(".banner img").style.opacity = 1;
+
+          if(quoteIndex===quotesData.length-1) {
+            setQuoteIndex(0)
+            return 
+          }
+        
+          const intervalId = setInterval(() => {
+
+            setQuoteIndex((prevState)=> prevState+1);
+            console.log(currentIndex, "current index")
+            //setCurrentQuote(quotesData[quoteIndex+1])
+        
+            // Set opacity to 0 before the transition - STARTING POINT
+            //document.querySelector(".container").style.opacity = 0;
+            //document.querySelector(".banner img").style.opacity = 0;
+            setCurrentQuote(quotesData[quoteIndex+1])
+
+        
+          }, 4000);
+    
 
     return () => clearInterval(intervalId);
-  }, []);
-
-  useEffect(() => {
-    setCurrentQuote(quotesData[quoteIndex]);
   }, [quoteIndex]);
+
+    useEffect(()=>{
+      document.querySelector(".container").style.opacity = 0;
+      document.querySelector(".banner img").style.opacity = 0;
+
+      setTimeout(() => {
+        // Set opacity to 1 after the transition - TO GET THE TRANSITION EFFECT
+        document.querySelector(".container").style.opacity = 1;
+        document.querySelector(".banner img").style.opacity = 1;
+        console.log("timeout")
+      }, 1000); 
+
+    },[quoteIndex])
+  console.log(quoteIndex)
 
   return (
     <div className="banner">
-      <img src={currentQuote.image} alt={currentQuote.author} style={{ maxWidth: '200px', maxHeight: '200px' }}/>
-      <p>{currentQuote.quote}</p>
-      <p>{currentQuote.author}</p>
+      <div className="container">
+        <p>{currentQuote.quote}</p>
+        <p>{currentQuote.author}</p>
+      </div>
+      <img
+        src={currentQuote.image}
+        alt={currentQuote.author}
+        style={{ maxWidth: "200px", maxHeight: "200px" }}
+      />
     </div>
   );
 };

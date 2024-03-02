@@ -11,16 +11,16 @@ function GenreDetailsPage() {
     useEffect(() => {
         const fetchData = async () => {
           try {
-            const genreResponse = await axios.get(`http://localhost:5005/genres/${id}`);
+            const genreResponse = await axios.get(`https://book-vue-backend.onrender.com/genres/${id}`);
             setGenreDetails(genreResponse.data);
     
-            const booksResponse = await axios.get(`http://localhost:5005/books`);
+            const booksResponse = await axios.get(`https://book-vue-backend.onrender.com/books`);
     
             const genreBooks = booksResponse.data.filter(book => book.genreId === Number(id));
     
             const booksWithAuthors = await Promise.all(
               genreBooks.map(async (book) => {
-                const authorResponse = await axios.get(`http://localhost:5005/authors/${book.authorId}`);
+                const authorResponse = await axios.get(`https://book-vue-backend.onrender.com/authors/${book.authorId}`);
                 return { ...book, author: authorResponse.data.name };
               })
             );

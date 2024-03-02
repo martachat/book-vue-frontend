@@ -10,16 +10,16 @@ function PublisherDetailsPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const publisherResponse = await axios.get(`http://localhost:5005/publishers/${id}`);
+        const publisherResponse = await axios.get(`https://book-vue-backend.onrender.com/publishers/${id}`);
         setPublisherDetails(publisherResponse.data);
 
-        const booksResponse = await axios.get(`http://localhost:5005/books`);
+        const booksResponse = await axios.get(`https://book-vue-backend.onrender.com/books`);
         const publisherBooks = booksResponse.data.filter(book => book.publisherId === Number(id));
 
         const booksWithAuthors = await Promise.all(
           publisherBooks.map(async (book) => {
             try {
-              const authorResponse = await axios.get(`http://localhost:5005/authors/${book.authorId}`);
+              const authorResponse = await axios.get(`https://book-vue-backend.onrender.com/authors/${book.authorId}`);
               return { ...book, author: authorResponse.data.name };
             } catch (authorError) {
               console.error(`Error fetching author for book ${book.id}:`, authorError);
