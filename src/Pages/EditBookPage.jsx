@@ -173,6 +173,7 @@ function EditBookPage() {
           name="publicationDate"
           value={newBookData.publicationDate}
           onChange={handleInputChange}
+          required pattern="\d{2}-\d{2}-\d{4}"
         />
         <label>Description:</label>
         <textarea
@@ -197,7 +198,7 @@ function EditBookPage() {
 
         <div>
           {authors
-            .filter((author) => author.name.toLowerCase().includes(newBookData.authorId.toLowerCase()))
+            .filter((author) => author.name.toLowerCase().includes(newBookData.authorId))
             .map((filteredAuthor) => (
               <div key={filteredAuthor.id} onClick={() => setNewBookData({ ...newBookData, authorId: filteredAuthor.id.toString() })}>
                 {filteredAuthor.name}
@@ -221,7 +222,7 @@ function EditBookPage() {
         />  
         <div>
           {publishers
-            .filter((publisher) => publisher.name.toLowerCase().includes(newBookData.publisherId.toLowerCase()))
+            .filter((publisher) => publisher.name.toLowerCase().includes(newBookData.publisherId))
             .map((filteredPublisher) => (
               <div key={filteredPublisher.id} onClick={() => setNewBookData({ ...newBookData, publisherId: filteredPublisher.id.toString() })}>
                 {filteredPublisher.name}

@@ -52,7 +52,6 @@ const quotesData = [
 
   useEffect(() => {
 
-          // Transition on component mount - Make sure to move both img and text at the same time (Is opacity an ok criteria?)
           document.querySelector(".container").style.opacity = 1;
           document.querySelector(".banner img").style.opacity = 1;
 
@@ -64,12 +63,6 @@ const quotesData = [
           const intervalId = setInterval(() => {
 
             setQuoteIndex((prevState)=> prevState+1);
-            console.log(currentIndex, "current index")
-            //setCurrentQuote(quotesData[quoteIndex+1])
-        
-            // Set opacity to 0 before the transition - STARTING POINT
-            //document.querySelector(".container").style.opacity = 0;
-            //document.querySelector(".banner img").style.opacity = 0;
             setCurrentQuote(quotesData[quoteIndex+1])
 
         
@@ -84,26 +77,23 @@ const quotesData = [
       document.querySelector(".banner img").style.opacity = 0;
 
       setTimeout(() => {
-        // Set opacity to 1 after the transition - TO GET THE TRANSITION EFFECT
         document.querySelector(".container").style.opacity = 1;
         document.querySelector(".banner img").style.opacity = 1;
-        console.log("timeout")
       }, 1000); 
 
     },[quoteIndex])
-  console.log(quoteIndex)
 
   return (
     <div className="banner">
       <div className="container">
-        <p>{currentQuote.quote}</p>
-        <p>{currentQuote.author}</p>
-      </div>
-      <img
+        <p className="quote">{currentQuote.quote}</p>
+        <p className="author">{currentQuote.author}</p>
+        <img
         src={currentQuote.image}
         alt={currentQuote.author}
         style={{ maxWidth: "200px", maxHeight: "200px" }}
       />
+      </div>
     </div>
   );
 };
