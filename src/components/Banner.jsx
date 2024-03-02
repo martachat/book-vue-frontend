@@ -84,7 +84,14 @@ const quotesData = [
     },[quoteIndex])
 
   return (
-    <div className="banner">
+    <div className="welcome_banner" style={{marginBottom:'10px'}}>
+    <h1> Welcome</h1>
+    <h4>BookVue is the independent platform for book lovers</h4>
+    <ul>
+      <li style={{ listStyle: 'none' }}> • Discover new and old books</li>
+      <li style={{ listStyle: 'none' }}> • Rate and comment books</li>
+    </ul>
+    <div className="banner" style={{marginTop:'10px', paddingTop: '0px'}}>
       <div className="container">
         <p className="quote">{currentQuote.quote}</p>
         <p className="author">{currentQuote.author}</p>
@@ -95,6 +102,8 @@ const quotesData = [
       />
       </div>
     </div>
+  </div>
+ 
   );
 };
 

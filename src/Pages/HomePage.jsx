@@ -22,16 +22,18 @@ function HomePage() {
       });
   }, []);
 
+  useEffect(() => {
+    setFilterOption("book");
+    setSortOption("");
+  }, []);
+
   const filteredItems = books
     .filter((item) => {
       const searchTarget =
         filterOption === "book"
           ? item.title.toLowerCase()
           : item.author && item.author.name.toLowerCase();
-      return (
-        searchTarget &&
-        searchTarget.startsWith(searchQuery.toLowerCase())
-      );
+      return searchTarget && searchTarget.startsWith(searchQuery.toLowerCase());
     })
     .sort((a, b) => {
       if (sortOption === "title") {
@@ -44,10 +46,11 @@ function HomePage() {
         const dateA = new Date(a.publicationDate || 0);
         const dateB = new Date(b.publicationDate || 0);
         return dateA - dateB;
+      } else if (sortOption === "rating") {
+        return (b.rating || 0) - (a.rating || 0);
       }
       return 0;
     });
-
 
   function truncate(str) {
     return str.length > 60 ? str.substring(0, 60) + "..." : str;
@@ -72,11 +75,15 @@ function HomePage() {
         <input
           type="text"
           className="search"
-          placeholder="Search"
+          placeholder="Search 🔎"
           value={searchQuery}
           onChange={handleSearch}
         />
-        <select value={filterOption} onChange={handleFilterOptionChange}>
+        <select
+          style={{ borderColor: "#393B72", color: "white" }}
+          value={filterOption}
+          onChange={handleFilterOptionChange}
+        >
           <option value="book">Search by Book</option>
           <option value="author">Search by Author</option>
         </select>
@@ -85,6 +92,7 @@ function HomePage() {
           <option value="title">Sort by Title</option>
           <option value="author">Sort by Author</option>
           <option value="date">Sort by Date</option>
+          <option value="rating">Sort by Rating</option>
         </select>
       </div>
       <div className="home_page">
@@ -109,6 +117,7 @@ function HomePage() {
                 )}
                 <p>{truncate(item.description)}</p>
               </div>
+              <p>⭐ {item.rating || "N/A"}</p>
             </div>
           </div>
         ))}

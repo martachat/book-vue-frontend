@@ -6,19 +6,20 @@
   justify-content: center;
 }
 
+
 .container {
-  max-width: 800px; /* Set your desired maximum width */
-  width: 100%; /* Take up the full width of the container div */
+  max-width: 800px; 
+  width: 100%; 
   flex: 1;
   padding: 20px;
   color: white;
+  background-color: #464646;
   text-align: left;
   opacity: 0;
   transition: opacity 0.5s ease-in-out;
   border-radius: 15px 50px;
-  margin-right: 20px; /* Adjust the margin-right to create space between quote and image */
-  display: flex; /* Add this property */
-  align-items: center; /* Add this property */
+  display: flex; 
+  align-items: center; 
 }
 
 .quote {
