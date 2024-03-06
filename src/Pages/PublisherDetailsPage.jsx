@@ -10,16 +10,16 @@ function PublisherDetailsPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const publisherResponse = await axios.get(`http://localhost:5005/publishers/${id}`);
+        const publisherResponse = await axios.get(`https://book-vue-backend.onrender.com/publishers/${id}`);
         setPublisherDetails(publisherResponse.data);
 
-        const booksResponse = await axios.get(`http://localhost:5005/books`);
+        const booksResponse = await axios.get(`https://book-vue-backend.onrender.com/books`);
         const publisherBooks = booksResponse.data.filter(book => book.publisherId === Number(id));
 
         const booksWithAuthors = await Promise.all(
           publisherBooks.map(async (book) => {
             try {
-              const authorResponse = await axios.get(`http://localhost:5005/authors/${book.authorId}`);
+              const authorResponse = await axios.get(`https://book-vue-backend.onrender.com/authors/${book.authorId}`);
               return { ...book, author: authorResponse.data.name };
             } catch (authorError) {
               console.error(`Error fetching author for book ${book.id}:`, authorError);
@@ -44,23 +44,27 @@ function PublisherDetailsPage() {
           <h2>{publisherDetails.name}</h2>
 
           {publisherBooks.length > 0 ? (
-            <ul style={{ listStyleType: 'none', padding: 0 }}>
+            <div style={{ display: 'flex', flexWrap: 'wrap' }}>
               {publisherBooks.map((book) => (
-                <li key={book.id}>
+                <div key={book.id} style={{ marginRight: '20px', marginBottom: '20px' }}>
                   <Link to={`/books/${book.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
                     <img
                       src={book.image}
                       alt={book.title}
-                      style={{ maxWidth: '50px', maxHeight: '50px', marginRight: '10px' }}
+                      style={{ maxWidth: '100px', maxHeight: '100px', marginBottom: '5px' }}
                     />
-                    <strong>{book.title}</strong> - {' '}
-                    <Link to={`/authors/${book.authorId}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-                      {book.author}
-                    </Link>
+                    <p style={{ fontWeight: 'bold', margin: 0 }}>{book.title}</p>
+                    <p style={{ margin: 0 }}>
+                      By{' '}
+                      <Link to={`/authors/${book.authorId}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+                        {book.author}
+                      </Link>
+                    </p>
+                    <p style={{ margin: 0 }}>⭐ {book.rating}</p>
                   </Link>
-                </li>
+                </div>
               ))}
-            </ul>
+            </div>
           ) : (
             <p>No books available for this publisher.</p>
           )}

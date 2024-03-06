@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function EditBookPage() {
   const { id } = useParams();
@@ -15,7 +15,7 @@ function EditBookPage() {
     publisherId: "",
     rating: "",
     genreId: "",
-    languageId: ""
+    languageId: "",
   });
   const [authors, setAuthors] = useState([]);
   const [publishers, setPublishers] = useState([]);
@@ -41,7 +41,7 @@ function EditBookPage() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5005/books/${id}`)
+      .get(`https://book-vue-backend.onrender.com/books/${id}`)
       .then((response) => {
         setBook(response.data);
         setNewBookData({
@@ -62,7 +62,7 @@ function EditBookPage() {
       });
 
     axios
-      .get("http://localhost:5005/authors")
+      .get("https://book-vue-backend.onrender.com/authors")
       .then((response) => {
         setAuthors(response.data);
       })
@@ -70,17 +70,15 @@ function EditBookPage() {
         console.error(error);
       });
 
-
-  axios
-  .get("http://localhost:5005/publishers")
-  .then((response) => {
-    setPublishers(response.data);
-  })
-  .catch((error) => {
-    console.error(error);
-  });
+    axios
+      .get("https://book-vue-backend.onrender.com/publishers")
+      .then((response) => {
+        setPublishers(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }, [id]);
-
 
   const handleInputChange = (e) => {
     setNewBookData({
@@ -91,7 +89,7 @@ function EditBookPage() {
 
   const handleAuthorSearch = (searchTerm) => {
     axios
-      .get(`http://localhost:5005/authors?q=${searchTerm}`)
+      .get(`https://book-vue-backend.onrender.com/authors?q=${searchTerm}`)
       .then((response) => {
         setAuthors(response.data);
       })
@@ -102,7 +100,7 @@ function EditBookPage() {
 
   const handlePublisherSearch = (searchTerm) => {
     axios
-      .get(`http://localhost:5005/publishers?q=${searchTerm}`)
+      .get(`https://book-vue-backend.onrender.com/publishers?q=${searchTerm}`)
       .then((response) => {
         setPublishers(response.data);
       })
@@ -114,7 +112,9 @@ function EditBookPage() {
   const handleEditBook = () => {
     if (isNaN(newBookData.authorId)) {
       axios
-        .post("http://localhost:5005/authors", { name: newBookData.authorId })
+        .post("https://book-vue-backend.onrender.com/authors", {
+          name: newBookData.authorId,
+        })
         .then((newAuthorResponse) => {
           const newAuthorId = newAuthorResponse.data.id;
           updateBook(newAuthorId);
@@ -129,7 +129,7 @@ function EditBookPage() {
 
   const updateBook = (authorId) => {
     axios
-      .put(`http://localhost:5005/books/${id}`, {
+      .put(`https://book-vue-backend.onrender.com/books/${id}`, {
         ...newBookData,
         authorId: authorId,
       })
@@ -173,6 +173,8 @@ function EditBookPage() {
           name="publicationDate"
           value={newBookData.publicationDate}
           onChange={handleInputChange}
+          required
+          pattern="\d{2}-\d{2}-\d{4}"
         />
         <label>Description:</label>
         <textarea
@@ -185,8 +187,9 @@ function EditBookPage() {
           type="text"
           name="authorId"
           value={
-            authors.find((author) => author.id.toString() === newBookData.authorId)?.name ||
-            newBookData.authorId
+            authors.find(
+              (author) => author.id.toString() === newBookData.authorId
+            )?.name || newBookData.authorId
           }
           placeholder="Type author"
           onChange={(e) => {
@@ -197,33 +200,54 @@ function EditBookPage() {
 
         <div>
           {authors
-            .filter((author) => author.name.toLowerCase().includes(newBookData.authorId.toLowerCase()))
+            .filter((author) =>
+              author.name.toLowerCase().includes(newBookData.authorId)
+            )
             .map((filteredAuthor) => (
-              <div key={filteredAuthor.id} onClick={() => setNewBookData({ ...newBookData, authorId: filteredAuthor.id.toString() })}>
+              <div
+                key={filteredAuthor.id}
+                onClick={() =>
+                  setNewBookData({
+                    ...newBookData,
+                    authorId: filteredAuthor.id.toString(),
+                  })
+                }
+              >
                 {filteredAuthor.name}
               </div>
             ))}
         </div>
 
         <label>Publisher:</label>
-       <input
-       type="text"
-       name="publisherId"
-       value={
-         publishers.find((publisher) => publisher.id.toString() === newBookData.publisherId)?.name ||
-          newBookData.publisherId
-        }
-       placeholder="Type publisher"
-       onChange={(e) => {
-       setNewBookData({ ...newBookData, publisherId: e.target.value });
-       handlePublisherSearch(e.target.value)
-       }}
-        />  
+        <input
+          type="text"
+          name="publisherId"
+          value={
+            publishers.find(
+              (publisher) => publisher.id.toString() === newBookData.publisherId
+            )?.name || newBookData.publisherId
+          }
+          placeholder="Type publisher"
+          onChange={(e) => {
+            setNewBookData({ ...newBookData, publisherId: e.target.value });
+            handlePublisherSearch(e.target.value);
+          }}
+        />
         <div>
           {publishers
-            .filter((publisher) => publisher.name.toLowerCase().includes(newBookData.publisherId.toLowerCase()))
+            .filter((publisher) =>
+              publisher.name.toLowerCase().includes(newBookData.publisherId)
+            )
             .map((filteredPublisher) => (
-              <div key={filteredPublisher.id} onClick={() => setNewBookData({ ...newBookData, publisherId: filteredPublisher.id.toString() })}>
+              <div
+                key={filteredPublisher.id}
+                onClick={() =>
+                  setNewBookData({
+                    ...newBookData,
+                    publisherId: filteredPublisher.id.toString(),
+                  })
+                }
+              >
                 {filteredPublisher.name}
               </div>
             ))}
@@ -269,4 +293,3 @@ function EditBookPage() {
 }
 
 export default EditBookPage;
-

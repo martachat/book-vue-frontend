@@ -52,9 +52,9 @@ function CreateNewBook() {
     console.log("Sending:", inputValue);
     const newAothur = { name: inputValue };
     axios
-      .post("http://localhost:5005/authors", newAothur)
+      .post("https://book-vue-backend.onrender.com/authors", newAothur)
       .then(() => {
-        return axios.get("http://localhost:5005/authors");
+        return axios.get("https://book-vue-backend.onrender.com/authors");
       })
       .then((authors) => {
         setAuthors(authors.data);
@@ -69,9 +69,9 @@ function CreateNewBook() {
     console.log("Sending:", inputValue);
     const newPublisher = { name: inputValue };
     axios
-      .post("http://localhost:5005/publishers", newPublisher)
+      .post("https://book-vue-backend.onrender.com/publishers", newPublisher)
       .then(() => {
-        return axios.get("http://localhost:5005/publishers");
+        return axios.get("https://book-vue-backend.onrender.com/publishers");
       })
       .then((publishers) => {
         setPublishers(publishers.data);
@@ -92,8 +92,8 @@ function CreateNewBook() {
   useEffect(() => {
     axios
       .all([
-        axios.get("http://localhost:5005/authors"),
-        axios.get("http://localhost:5005/publishers"),
+        axios.get("https://book-vue-backend.onrender.com/authors"),
+        axios.get("https://book-vue-backend.onrender.com/publishers"),
       ])
       .then(
         axios.spread((res1, res2) => {
@@ -124,7 +124,7 @@ function CreateNewBook() {
     };
 
     axios
-      .post("http://localhost:5005/books", newBook)
+      .post("https://book-vue-backend.onrender.com/books", newBook)
       .then((response) => {
         console.log(response.data);
       })

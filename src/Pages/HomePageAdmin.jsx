@@ -10,7 +10,7 @@ function HomePage() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5005/books?_expand=author")
+      .get("https://book-vue-backend.onrender.com/books?_expand=author")
       .then((books) => {
         console.log(books.data);
         setBooks(books.data);
@@ -38,7 +38,7 @@ function HomePage() {
     );
     if (confirmDelete) {
       axios
-        .delete(`http://localhost:5005/books/${bookId}`)
+        .delete(`https://book-vue-backend.onrender.com/books/${bookId}`)
         .then(() => {
           console.log(`Book with ID ${bookId} deleted successfully`);
           navigate("/admin");
@@ -98,7 +98,7 @@ function HomePage() {
           </div>
         ))}
       </div>
-      <Link to={"http://localhost:5173/books/create"}>
+      <Link to={"https://book-vue-backend.onrender.com/books/create"}>
         <button className="add-new-book">+</button>
       </Link>
     </div>

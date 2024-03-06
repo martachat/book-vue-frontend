@@ -17,11 +17,12 @@ function HomePage() {
   const [books, setBooks] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [filterOption, setFilterOption] = useState("book");
+  const [sortOption, setSortOption] = useState("title");
   const navigate = useNavigate();
 
   useEffect(() => {
     axios
-      .get("http://localhost:5005/books?_expand=author")
+      .get("https://book-vue-backend.onrender.com/books?_expand=author")
       .then((books) => {
         setBooks(books.data);
       })
@@ -30,13 +31,35 @@ function HomePage() {
       });
   }, []);
 
-  const filteredItems = books.filter((item) => {
-    const searchTarget =
-      filterOption === "book"
-        ? item.title.toLowerCase()
-        : item.author && item.author.name.toLowerCase();
-    return searchTarget && searchTarget.startsWith(searchQuery.toLowerCase());
-  });
+  useEffect(() => {
+    setFilterOption("book");
+    setSortOption("");
+  }, []);
+
+  const filteredItems = books
+    .filter((item) => {
+      const searchTarget =
+        filterOption === "book"
+          ? item.title.toLowerCase()
+          : item.author && item.author.name.toLowerCase();
+      return searchTarget && searchTarget.startsWith(searchQuery.toLowerCase());
+    })
+    .sort((a, b) => {
+      if (sortOption === "title") {
+        return a.title.localeCompare(b.title);
+      } else if (sortOption === "author") {
+        const authorA = (a.author && a.author.name) || "";
+        const authorB = (b.author && b.author.name) || "";
+        return authorA.localeCompare(authorB);
+      } else if (sortOption === "date") {
+        const dateA = new Date(a.publicationDate || 0);
+        const dateB = new Date(b.publicationDate || 0);
+        return dateA - dateB;
+      } else if (sortOption === "rating") {
+        return (b.rating || 0) - (a.rating || 0);
+      }
+      return 0;
+    });
 
   function truncate(str) {
     return str.length > 60 ? str.substring(0, 60) + "..." : str;
@@ -50,6 +73,10 @@ function HomePage() {
     setFilterOption(e.target.value);
   }
 
+  function handleSortOptionChange(e) {
+    setSortOption(e.target.value);
+  }
+
   return (
     <div>
       <Banner />
@@ -57,13 +84,24 @@ function HomePage() {
         <input
           type="text"
           className="search"
-          placeholder="Search"
+          placeholder="Search 🔎"
           value={searchQuery}
           onChange={handleSearch}
         />
-        <select value={filterOption} onChange={handleFilterOptionChange}>
+        <select
+          style={{ borderColor: "#393B72", color: "white" }}
+          value={filterOption}
+          onChange={handleFilterOptionChange}
+        >
           <option value="book">Search by Book</option>
           <option value="author">Search by Author</option>
+        </select>
+        <select value={sortOption} onChange={handleSortOptionChange}>
+          <option value="">No Sorting</option>
+          <option value="title">Sort by Title</option>
+          <option value="author">Sort by Author</option>
+          <option value="date">Sort by Date</option>
+          <option value="rating">Sort by Rating</option>
         </select>
       </div>
       <div className="home_page">
@@ -88,6 +126,7 @@ function HomePage() {
                 )}
                 <p>{truncate(item.description)}</p>
               </div>
+              <p>⭐ {item.rating || "N/A"}</p>
             </div>
           </div>
         ))}
