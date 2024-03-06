@@ -1,8 +1,17 @@
-import axios from "axios";
+import axios from "../api/axios";
 import { useEffect, useState } from "react";
 import "./HomePage.css";
 import { Link, useNavigate } from "react-router-dom";
 import Banner from "../components/Banner";
+
+// const accessToken = "";
+
+// const axiosAuth = axios.create({
+//   baseURL: apiURL,
+//   headers: {
+//     Authorization: `Bearer ${accessToken}`,
+//   },
+// });
 
 function HomePage() {
   const [books, setBooks] = useState([]);
@@ -83,6 +92,7 @@ function HomePage() {
           </div>
         ))}
       </div>
+      {/* <button onClick={localStorage.clear("token")}> logout</button> */}
     </div>
   );
 }

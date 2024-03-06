@@ -2,10 +2,26 @@ import email_icon from "../assets/email.png";
 import user_icon from "../assets/user.png";
 import password_icon from "../assets/lock.png";
 import "./LoginPage.css";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 function LoginPage() {
   const [action, setAction] = useState("Login");
+  const userRef = useRef();
+  const errRef = useRef();
+
+  const [user, setUser] = useState("");
+  const [pwd, setPwd] = useState("");
+  const [errMsg, setErrMsg] = useState("");
+  const [success, setSuccess] = useState(false);
+
+  useEffect(() => {
+    userRef.current.focus();
+  }, []);
+
+  useEffect(() => {
+    setErrMsg();
+  }, [user, pwd]);
+
   return (
     <div className="container">
       <div className="header">

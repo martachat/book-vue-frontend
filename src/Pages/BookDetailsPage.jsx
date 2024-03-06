@@ -1,22 +1,25 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { Link, useParams } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import axios from "../api/axios";
+import { Link, useParams } from "react-router-dom";
 
 function BookDetailsPage() {
   const { id } = useParams();
   const [bookDetails, setBookDetails] = useState(null);
 
   useEffect(() => {
-    axios.get(`http://localhost:5005/books/${id}?_expand=author&_expand=publisher&_expand=genre&_expand=language`)
+    console.log(localStorage.getItem("token"));
+    axios
+      .get(
+        `http://localhost:5005/books/${id}?_expand=author&_expand=publisher&_expand=genre&_expand=language`
+      )
       .then((response) => {
-        console.log(response.data)
+        console.log(response.data);
         setBookDetails(response.data);
       })
       .catch((error) => {
         console.log(error);
       });
   }, [id]);
-
 
   return (
     <div>
@@ -25,33 +28,42 @@ function BookDetailsPage() {
           <img
             src={bookDetails.image}
             alt={bookDetails.title}
-            style={{ maxWidth: '300px', maxHeight: '300px' }}
+            style={{ maxWidth: "300px", maxHeight: "300px" }}
           />
           <h2>{bookDetails.title}</h2>
-          <Link to={`/authors/${bookDetails.author.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-          <p>By {bookDetails.author.name}</p>
+          <Link
+            to={`/authors/${bookDetails.author.id}`}
+            style={{ textDecoration: "none", color: "inherit" }}
+          >
+            <p>By {bookDetails.author.name}</p>
           </Link>
 
           <p>{bookDetails.description}</p>
 
           <h3>Genre</h3>
-          <Link to={`/genres/${bookDetails.genre.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-          <p>{bookDetails.genre.name}</p>
+          <Link
+            to={`/genres/${bookDetails.genre.id}`}
+            style={{ textDecoration: "none", color: "inherit" }}
+          >
+            <p>{bookDetails.genre.name}</p>
           </Link>
           <table>
             <tbody>
-               <tr>
+              <tr>
                 <th>Language:</th>
                 <td>{bookDetails.language.name}</td>
-              </tr> 
-               <tr>
+              </tr>
+              <tr>
                 <th>Publisher:</th>
                 <td>
-                <Link to={`/publishers/${bookDetails.publisher.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-                {bookDetails.publisher.name}
-                </Link>
+                  <Link
+                    to={`/publishers/${bookDetails.publisher.id}`}
+                    style={{ textDecoration: "none", color: "inherit" }}
+                  >
+                    {bookDetails.publisher.name}
+                  </Link>
                 </td>
-              </tr> 
+              </tr>
               <tr>
                 <th>Publication Date:</th>
                 <td>{bookDetails.publicationDate}</td>
@@ -71,6 +83,3 @@ function BookDetailsPage() {
 }
 
 export default BookDetailsPage;
-
-
-
