@@ -1,8 +1,9 @@
-import axios from "../api/axios";
+import axios from "../../api/axios";
 import { useEffect, useState } from "react";
 import "./HomePage.css";
 import { Link, useNavigate } from "react-router-dom";
-import Banner from "../components/Banner";
+import Banner from "../../components/Banner";
+import Button from "@mui/material/Button";
 
 // const accessToken = "";
 
@@ -131,7 +132,6 @@ function HomePage() {
           </div>
         ))}
       </div>
-      {/* <button onClick={localStorage.clear("token")}> logout</button> */}
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import axios from "axios";
+import axios from "../../api/axios";
 import "./CreateNewBook.css";
 import SearchableDropdown from "../../components/SearchableDropdown";
 import PopupDialog from "../../components/PopupDialog";
@@ -8,6 +8,7 @@ import PopupDialog from "../../components/PopupDialog";
 function CreateNewBook() {
   const [authors, setAuthors] = useState([]);
   const [publishers, setPublishers] = useState([]);
+  const [book, setBook] = useState([]);
 
   const [title, setTitle] = useState("");
   const [image, setImage] = useState("");
@@ -90,19 +91,38 @@ function CreateNewBook() {
   };
 
   useEffect(() => {
+    // axios
+    //   .all([
+    //     axios.get("https://book-vue-backend.onrender.com/authors"),
+    //     axios.get("https://book-vue-backend.onrender.com/publishers"),
+    //   ])
+    //   .then(
+    //     axios.spread((res1, res2) => {
+    //       setAuthors(res1.data);
+    //       setPublishers(res2.data);
+    //       console.log("authors", authors);
+    //       console.log("publishers", publishers);
+    //     })
+    //   )
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
     axios
-      .all([
-        axios.get("https://book-vue-backend.onrender.com/authors"),
-        axios.get("https://book-vue-backend.onrender.com/publishers"),
-      ])
-      .then(
-        axios.spread((res1, res2) => {
-          setAuthors(res1.data);
-          setPublishers(res2.data);
-          console.log("authors", authors);
-          console.log("publishers", publishers);
-        })
-      )
+      .get("https://book-vue-backend.onrender.com/authors")
+      .then((authors) => {
+        setAuthors(authors.data);
+        console.log("authors", authors.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    axios
+      .get("https://book-vue-backend.onrender.com/publishers")
+      .then((publishers) => {
+        setPublishers(publishers.data);
+        console.log("publishers", publishers.data);
+      })
       .catch((err) => {
         console.log(err);
       });
@@ -118,8 +138,8 @@ function CreateNewBook() {
       publicationDate: publicationDate,
       genreId: genreId,
       languageId: languageId,
-      publisherId: publisherId,
-      authorId: authorId,
+      publisherId: Number(publisherId),
+      authorId: Number(authorId),
       rating: 0.0,
     };
 
@@ -127,6 +147,8 @@ function CreateNewBook() {
       .post("https://book-vue-backend.onrender.com/books", newBook)
       .then((response) => {
         console.log(response.data);
+        setBook(response.data);
+        console.log("book", book);
       })
       .catch((err) => {
         console.log(err);
@@ -145,6 +167,7 @@ function CreateNewBook() {
             onChange={(e) => {
               setTitle(e.target.value);
             }}
+            required
           />
         </label>
         <label>
@@ -156,6 +179,7 @@ function CreateNewBook() {
             onChange={(e) => {
               setImage(e.target.value);
             }}
+            required
           />
         </label>
         <label>
@@ -167,6 +191,7 @@ function CreateNewBook() {
             onChange={(e) => {
               setDescription(e.target.value);
             }}
+            required
           />
         </label>
         <label>
@@ -178,6 +203,7 @@ function CreateNewBook() {
             onChange={(e) => {
               setPublicationDate(e.target.value);
             }}
+            required
           />
         </label>
         <label>
@@ -189,6 +215,7 @@ function CreateNewBook() {
             onChange={(e) => {
               setPages(e.target.value);
             }}
+            required
           />
         </label>
 
@@ -215,6 +242,7 @@ function CreateNewBook() {
               setLanguage(val);
               setLanguageId(id);
             }}
+            required
           />
         </div>
 
@@ -228,6 +256,7 @@ function CreateNewBook() {
               setAuthor(val);
               setAuthorId(id);
             }}
+            required
           />
           <button className="addNew" onClick={openPopup}>
             +
@@ -251,6 +280,7 @@ function CreateNewBook() {
               setPublisher(val);
               setPublisherId(id);
             }}
+            required
           />
           <button className="addNew" onClick={openPopup}>
             +
@@ -261,6 +291,7 @@ function CreateNewBook() {
             title="Add New Publisher"
             inputPlaceholder="name of the Publisher..."
             onSend={handleSend}
+            required
           />
         </div>
 

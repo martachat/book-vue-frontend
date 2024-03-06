@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect, useContext } from "react";
-import AuthContext from "../context/AuthProvider";
-import axios from "../api/axios";
+import AuthContext from "../../context/AuthProvider";
+import axios from "../../api/axios";
 import { Link } from "react-router-dom";
 import Register from "./Register";
 
