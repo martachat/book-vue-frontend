@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import axios from "../../api/axios";
 import { Link, useParams } from "react-router-dom";
 
 function GenreDetailsPage() {
@@ -51,7 +51,7 @@ function GenreDetailsPage() {
             <ul
               style={{
                 listStyleType: "none",
-                padding: '50px',
+                padding: "50px",
                 display: "flex",
                 flexWrap: "wrap",
               }}

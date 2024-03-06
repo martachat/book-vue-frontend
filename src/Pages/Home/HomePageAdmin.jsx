@@ -1,13 +1,27 @@
-import axios from "axios";
+import axios from "../../api/axios";
 import { useEffect, useState } from "react";
 import "./HomePage.css";
 import { Link, useNavigate } from "react-router-dom";
+import { Notyf } from "notyf";
+import "notyf/notyf.min.css";
 
-function HomePage() {
+function HomePageAdmin() {
   const [books, setBooks] = useState([]);
+  const [book, setBook] = useState([]);
   const [author, setAuthor] = useState();
   const [searchQuery, setSearchQuery] = useState("");
+  const [success, setSuccess] = useState(false);
 
+  var notyf = new Notyf({
+    position: {
+      x: "right",
+      y: "top",
+    },
+  });
+
+  const successToast = () => {
+    notyf.success("asdasd asdasd");
+  };
   useEffect(() => {
     axios
       .get("https://book-vue-backend.onrender.com/books?_expand=author")
@@ -18,7 +32,7 @@ function HomePage() {
       .catch((e) => {
         console.log(e);
       });
-  }, []);
+  }, [book]);
 
   const filteredBooks = books.filter((book) =>
     book.title.toLowerCase().startsWith(searchQuery.toLowerCase())
@@ -41,7 +55,10 @@ function HomePage() {
         .delete(`https://book-vue-backend.onrender.com/books/${bookId}`)
         .then(() => {
           console.log(`Book with ID ${bookId} deleted successfully`);
-          navigate("/admin");
+          // navigate("/admin");
+          setBook(bookId);
+          setSuccess(true);
+          notyf.success(`book ${bookId} has been successfully deleted`);
         })
         .catch((error) => {
           console.error(`Error deleting book with ID ${bookId}`, error);
@@ -58,6 +75,7 @@ function HomePage() {
         value={searchQuery}
         onChange={handleSearch}
       />
+
       <div className="home_page">
         {filteredBooks.map((book) => (
           <div key={book.id} className="container_home">
@@ -98,11 +116,20 @@ function HomePage() {
           </div>
         ))}
       </div>
-      <Link to={"https://book-vue-backend.onrender.com/books/create"}>
+      {/* {success ? (
+        <AlertBox className="alert" open={success}></AlertBox>
+      ) : (
+        <div />
+      )} */}
+
+      <Link to={"create"}>
         <button className="add-new-book">+</button>
+        {/* <Fab color="secondary" aria-label="add">
+          <AddIcon />
+        </Fab> */}
       </Link>
     </div>
   );
 }
 
-export default HomePage;
+export default HomePageAdmin;

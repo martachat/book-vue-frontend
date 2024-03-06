@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import axios from "../../api/axios";
 import { Link, useParams } from "react-router-dom";
 
 function AuthorDetailsPage() {
@@ -21,6 +21,7 @@ function AuthorDetailsPage() {
           (book) => book.authorId === Number(id)
         );
         setAuthorBooks(authorBooks);
+        console.log("setAuthorBooks", authorBooks);
       })
       .catch((error) => {
         console.error(error);
@@ -37,7 +38,7 @@ function AuthorDetailsPage() {
             <ul
               style={{
                 listStyleType: "none",
-                padding: '50px',
+                padding: "50px",
                 display: "flex",
                 flexWrap: "wrap",
               }}

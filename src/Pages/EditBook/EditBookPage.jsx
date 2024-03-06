@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import axios from "axios";
+import axios from "../../api/axios";
+import { Notyf } from "notyf";
+import "notyf/notyf.min.css";
 
 function EditBookPage() {
   const { id } = useParams();
@@ -38,6 +40,12 @@ function EditBookPage() {
     { id: 7, name: "Russian" },
   ];
   const navigate = useNavigate();
+  var notyf = new Notyf({
+    position: {
+      x: "right",
+      y: "top",
+    },
+  });
 
   useEffect(() => {
     axios
@@ -118,6 +126,7 @@ function EditBookPage() {
         .then((newAuthorResponse) => {
           const newAuthorId = newAuthorResponse.data.id;
           updateBook(newAuthorId);
+          notyf.success(`author ${newAuthorId} has been successfully added`);
         })
         .catch((error) => {
           console.log(error);
@@ -135,6 +144,9 @@ function EditBookPage() {
       })
       .then((response) => {
         console.log("Book updated successfully", response.data);
+        notyf.success(
+          `book ${response.data.title} has been successfully updated`
+        );
         navigate(`/books/${id}`);
       })
       .catch((error) => {
