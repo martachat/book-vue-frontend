@@ -1,7 +1,7 @@
 .dropdown-container {
     display: flex;
     flex-direction: row;
-    width: 80%;
+    width: 50%;
     justify-content: space-around;
     margin: 0 auto;
   }
@@ -10,7 +10,7 @@
     position: relative;
     color: #333;
     cursor: default;
-    width: 400px;
+    /* width: 400px; */
     height: 60px;
     margin: 0 auto;
     
