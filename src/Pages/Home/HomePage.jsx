@@ -1,6 +1,6 @@
 import axios from "../../api/axios";
 import { useEffect, useState } from "react";
-import "./HomePage.css";
+// import "./HomePage.css";
 import { Link, useNavigate } from "react-router-dom";
 import Banner from "../../components/Banner";
 import Button from "@mui/material/Button";
@@ -81,30 +81,58 @@ function HomePage() {
   return (
     <div>
       <Banner />
-      <div>
-        <input
-          type="text"
-          className="search"
-          placeholder="Search 🔎"
-          value={searchQuery}
-          onChange={handleSearch}
-        />
+
+      <form className="flex items-center max-w-screen-md mx-auto space-x-4 ...">
+        <label className="sr-only">Search</label>
         <select
-          style={{ borderColor: "#393B72", color: "white" }}
           value={filterOption}
           onChange={handleFilterOptionChange}
+          className="bg-gray-50 border border-gray-300 max-w-40 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         >
           <option value="book">Search by Book</option>
           <option value="author">Search by Author</option>
         </select>
-        <select value={sortOption} onChange={handleSortOptionChange}>
+        <select
+          value={sortOption}
+          onChange={handleSortOptionChange}
+          className="bg-gray-50 border max-w-40 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        >
           <option value="">No Sorting</option>
           <option value="title">Sort by Title</option>
           <option value="author">Sort by Author</option>
           <option value="date">Sort by Date</option>
           <option value="rating">Sort by Rating</option>
         </select>
-      </div>
+
+        <div className="relative w-full">
+          <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+            <svg
+              class="w-4 h-4 text-gray-500 dark:text-gray-400"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 20 20"
+            >
+              <path
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+              />
+            </svg>
+          </div>
+          <input
+            type="text"
+            id="simple-search"
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="Search book name..."
+            required
+            value={searchQuery}
+            onChange={handleSearch}
+          />
+        </div>
+      </form>
       <div className="home_page">
         {filteredItems.map((item) => (
           <div key={item.id} className="container_home">

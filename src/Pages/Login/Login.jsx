@@ -3,7 +3,7 @@ import AuthContext from "../../context/AuthProvider";
 import axios from "../../api/axios";
 import { Link } from "react-router-dom";
 import Register from "./Register";
-
+import "./Login.css";
 const LOGIN_URL = "/login";
 
 const Login = ({ islogedin, setIslogedin }) => {

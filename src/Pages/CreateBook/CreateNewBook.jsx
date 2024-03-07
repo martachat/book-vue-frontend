@@ -155,147 +155,208 @@ function CreateNewBook() {
       });
   }
   return (
-    <div className="container">
-      <h1>create new book</h1>
-      <form className="inputs" onSubmit={handleSubmit}>
-        <label>
-          Title
-          <input
-            className="input"
-            type="text"
-            placeholder="Title"
-            onChange={(e) => {
-              setTitle(e.target.value);
-            }}
-            required
-          />
-        </label>
-        <label>
-          Image
-          <input
-            className="input"
-            type="text"
-            placeholder="Image"
-            onChange={(e) => {
-              setImage(e.target.value);
-            }}
-            required
-          />
-        </label>
-        <label>
-          Description
-          <input
-            className="input"
-            type="text"
-            placeholder="Description"
-            onChange={(e) => {
-              setDescription(e.target.value);
-            }}
-            required
-          />
-        </label>
-        <label>
-          Publication Date
-          <input
-            className="input"
-            type="date"
-            placeholder="Publication Date"
-            onChange={(e) => {
-              setPublicationDate(e.target.value);
-            }}
-            required
-          />
-        </label>
-        <label>
-          Number of Pages
-          <input
-            className="input"
-            type="number"
-            placeholder="Number of Pages"
-            onChange={(e) => {
-              setPages(e.target.value);
-            }}
-            required
-          />
-        </label>
+    <div className="mx-auto mt-16 max-w-xl sm:mt-20">
+      <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
+        create new book
+      </h1>
+      <form className="mx-auto mt-16 max-w-xl sm:mt-20" onSubmit={handleSubmit}>
+        <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
+          <div>
+            <label className="block text-sm font-semibold leading-6 text-gray-900">
+              Title
+              <div className="mt-2.5">
+                <input
+                  className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  type="text"
+                  name="Title"
+                  placeholder="Title"
+                  onChange={(e) => {
+                    setTitle(e.target.value);
+                  }}
+                  required
+                />
+              </div>
+            </label>
+          </div>
 
-        <div className="App">
-          <SearchableDropdown
-            options={genres}
-            label="name"
-            id="id"
-            selectedVal={genre}
-            handleChange={(val, id) => {
-              setGenre(val);
-              setGenreId(id);
-            }}
-          />
+          <div>
+            <label className="block text-sm font-semibold leading-6 text-gray-900">
+              Image
+              <div className="mt-2.5">
+                <input
+                  className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  type="text"
+                  placeholder="Image"
+                  onChange={(e) => {
+                    setImage(e.target.value);
+                  }}
+                  required
+                />
+              </div>
+            </label>
+          </div>
+
+          <div className="col-span-full">
+            <label className="block text-sm font-semibold leading-6 text-gray-900">
+              Description
+              <div className="mt-2.5">
+                <textarea
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  type="text"
+                  placeholder="Description"
+                  onChange={(e) => {
+                    setDescription(e.target.value);
+                  }}
+                  required
+                />
+              </div>
+            </label>
+          </div>
+
+          <div>
+            <label className="block text-sm font-semibold leading-6 text-gray-900">
+              Publication Date
+              <div className="mt-2.5">
+                <input
+                  className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  type="date"
+                  placeholder="Publication Date"
+                  onChange={(e) => {
+                    setPublicationDate(e.target.value);
+                  }}
+                  required
+                />
+              </div>
+            </label>
+          </div>
+
+          <div>
+            <label className="block text-sm font-semibold leading-6 text-gray-900">
+              Number of Pages
+              <div className="mt-2.5">
+                <input
+                  className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  type="number"
+                  placeholder="Number of Pages"
+                  onChange={(e) => {
+                    setPages(e.target.value);
+                  }}
+                  required
+                />
+              </div>
+            </label>
+          </div>
+
+          <div>
+            <label className="block text-sm font-semibold leading-6 text-gray-900">
+              Genre
+              <div className="mt-2.5">
+                <SearchableDropdown
+                  className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  options={genres}
+                  label="name"
+                  id="id"
+                  selectedVal={genre}
+                  handleChange={(val, id) => {
+                    setGenre(val);
+                    setGenreId(id);
+                  }}
+                />
+              </div>
+            </label>
+          </div>
+
+          <div>
+            <label className="block text-sm font-semibold leading-6 text-gray-900">
+              Languages
+              <div className="mt-2.5 ">
+                <div>
+                  <SearchableDropdown
+                    options={languages}
+                    label="name"
+                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    id="id"
+                    selectedVal={language}
+                    handleChange={(val, id) => {
+                      setLanguage(val);
+                      setLanguageId(id);
+                    }}
+                  />
+                </div>
+              </div>
+            </label>
+          </div>
+
+          <div className="flex mt-6 items-center justify-center gap-x-6">
+            <label className="block text-sm font-semibold leading-6 text-gray-900">
+              Aothurs
+              <div className="flex mt-6 justify-center gap-x-6">
+                <SearchableDropdown
+                  options={authors}
+                  label="name"
+                  id="id"
+                  selectedVal={author}
+                  handleChange={(val, id) => {
+                    setAuthor(val);
+                    setAuthorId(id);
+                  }}
+                  required
+                />
+                <button
+                  onClick={openPopup}
+                  className="items-center h-10 rounded-md bg-indigo-600 px-6 py-1 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                >
+                  +
+                </button>
+                <PopupDialog
+                  isOpen={isPopupOpen}
+                  onClose={closePopup}
+                  title="Add New Author"
+                  inputPlaceholder="name of author"
+                  onSend={handleSend2}
+                />
+              </div>
+            </label>
+          </div>
+
+          <div className="flex mt-6 items-center justify-center gap-x-6">
+            <label className="text-sm font-semibold leading-6 text-gray-900">
+              Publishers
+              <div className="flex mt-6 justify-center gap-x-6">
+                <SearchableDropdown
+                  options={publishers}
+                  label="name"
+                  id="id"
+                  selectedVal={publisher}
+                  handleChange={(val, id) => {
+                    setPublisher(val);
+                    setPublisherId(id);
+                  }}
+                  required
+                />
+                <button
+                  onClick={openPopup}
+                  className="items-center h-10 rounded-md bg-indigo-600 px-6 py-1 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                >
+                  +
+                </button>
+                <PopupDialog
+                  isOpen={isPopupOpen}
+                  onClose={closePopup}
+                  title="Add New Publisher"
+                  inputPlaceholder="name of the Publisher..."
+                  onSend={handleSend}
+                  required
+                />
+              </div>
+            </label>
+          </div>
         </div>
-
-        <div className="App">
-          <SearchableDropdown
-            options={languages}
-            label="name"
-            id="id"
-            selectedVal={language}
-            handleChange={(val, id) => {
-              setLanguage(val);
-              setLanguageId(id);
-            }}
-            required
-          />
-        </div>
-
-        <div className="dropdown-container">
-          <SearchableDropdown
-            options={authors}
-            label="name"
-            id="id"
-            selectedVal={author}
-            handleChange={(val, id) => {
-              setAuthor(val);
-              setAuthorId(id);
-            }}
-            required
-          />
-          <button className="addNew" onClick={openPopup}>
-            +
+        <div className="mt-6 flex items-center justify-center gap-x-6">
+          <button className="items-center rounded-md bg-indigo-600 px-4 py-4 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+            submit
           </button>
-          <PopupDialog
-            isOpen={isPopupOpen}
-            onClose={closePopup}
-            title="Add New Author"
-            inputPlaceholder="name of author"
-            onSend={handleSend2}
-          />
         </div>
-
-        <div className="dropdown-container">
-          <SearchableDropdown
-            options={publishers}
-            label="name"
-            id="id"
-            selectedVal={publisher}
-            handleChange={(val, id) => {
-              setPublisher(val);
-              setPublisherId(id);
-            }}
-            required
-          />
-          <button className="addNew" onClick={openPopup}>
-            +
-          </button>
-          <PopupDialog
-            isOpen={isPopupOpen}
-            onClose={closePopup}
-            title="Add New Publisher"
-            inputPlaceholder="name of the Publisher..."
-            onSend={handleSend}
-            required
-          />
-        </div>
-
-        <button className="submit"> submit</button>
         <div className="space"></div>
       </form>
     </div>
