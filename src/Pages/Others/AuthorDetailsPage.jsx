@@ -32,7 +32,7 @@ function AuthorDetailsPage() {
     <div>
       {authorDetails ? (
         <>
-          <h2>{authorDetails.name}</h2>
+          <h2 className="text-5xl font-extrabold p-8">{authorDetails.name}</h2>
 
           {authorBooks.length > 0 ? (
             <ul
@@ -44,12 +44,19 @@ function AuthorDetailsPage() {
               }}
             >
               {authorBooks.map((book) => (
-                <li key={book.id} style={{ marginRight: "20px" }}>
+                <li
+                  key={book.id}
+                  style={{ marginRight: "20px" }}
+                  className="max-w-48 border m-0"
+                >
                   <Link
                     to={`/books/${book.id}`}
                     style={{ textDecoration: "none", color: "inherit" }}
                   >
-                    <div style={{ marginBottom: "10px" }}>
+                    <div
+                      style={{ marginBottom: "10px" }}
+                      className="w-1/2 p-8 mx-auto text-center"
+                    >
                       <img
                         src={book.image}
                         alt={book.title}

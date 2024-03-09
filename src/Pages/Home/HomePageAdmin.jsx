@@ -70,7 +70,7 @@ function HomePageAdmin() {
     <div>
       <input
         type="text"
-        className="search"
+        className="m-6 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg w-4/5 focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         placeholder="Search"
         value={searchQuery}
         onChange={handleSearch}
@@ -85,11 +85,11 @@ function HomePageAdmin() {
                 <div className="home_text">
                   <Link to={`/books/${book.id}`} className="link">
                     {" "}
-                    <h4>{book.title}</h4>
+                    <h4 className="text-xl pb-4">{book.title}</h4>
                   </Link>
                   {book.author ? (
                     <Link to={`/authors/${book.author.id}`} className="link">
-                      <p>
+                      <p className="pb-4">
                         By <strong>{book.author.name}</strong>
                       </p>
                     </Link>
@@ -100,11 +100,13 @@ function HomePageAdmin() {
                 </div>
                 <div className="edit-delete-buttons">
                   <Link to={`/books/${book.id}/edit`}>
-                    <button className="btn-home">Edit Book</button>
+                    <button className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">
+                      Edit Book
+                    </button>
                   </Link>
                   <button
                     onClick={() => handleDeleteBook(book.id)}
-                    className="btn-home"
+                    className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto m-4"
                   >
                     Delete Book
                   </button>

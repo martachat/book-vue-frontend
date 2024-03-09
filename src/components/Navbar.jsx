@@ -42,7 +42,7 @@ function Navbar({ islogedin, setIslogedin }) {
       <Link to={"/"}>
         <img src={log}></img>
       </Link>
-      <div>
+      <div className="text-xl text-gray-900 dark:text-white hover:underline">
         {islogedin ? (
           <Link to={"#"} onClick={handleLogoutClick}>
             {/* {login} */}

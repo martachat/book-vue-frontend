@@ -4,6 +4,8 @@ import axios from "../../api/axios";
 import "./CreateNewBook.css";
 import SearchableDropdown from "../../components/SearchableDropdown";
 import PopupDialog from "../../components/PopupDialog";
+import { Notyf } from "notyf";
+import "notyf/notyf.min.css";
 
 function CreateNewBook() {
   const [authors, setAuthors] = useState([]);
@@ -29,6 +31,13 @@ function CreateNewBook() {
 
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
+  var notyf = new Notyf({
+    position: {
+      x: "right",
+      y: "top",
+    },
+  });
+
   const genres = [
     { id: 1, name: "Crime & Detective Novels" },
     { id: 2, name: "Fiction & Literature" },
@@ -48,7 +57,7 @@ function CreateNewBook() {
     { id: 7, name: "Russian" },
   ];
 
-  const handleSend = (inputValue) => {
+  const handleAddAuthor = (inputValue) => {
     // Handle the input value here
     console.log("Sending:", inputValue);
     const newAothur = { name: inputValue };
@@ -59,13 +68,16 @@ function CreateNewBook() {
       })
       .then((authors) => {
         setAuthors(authors.data);
+        notyf.success(
+          `author: ${authors.data.name} has been successfully added`
+        );
       })
       .catch((err) => {
         console.log(err);
       });
   };
 
-  const handleSend2 = (inputValue) => {
+  const handleAddPublisher = (inputValue) => {
     // Handle the input value here
     console.log("Sending:", inputValue);
     const newPublisher = { name: inputValue };
@@ -76,6 +88,9 @@ function CreateNewBook() {
       })
       .then((publishers) => {
         setPublishers(publishers.data);
+        notyf.success(
+          `publisher: ${publishers.data.name} has been successfully added`
+        );
       })
       .catch((err) => {
         console.log(err);
@@ -149,13 +164,14 @@ function CreateNewBook() {
         console.log(response.data);
         setBook(response.data);
         console.log("book", book);
+        notyf.success(`book: ${newBook.title} has been successfully added`);
       })
       .catch((err) => {
         console.log(err);
       });
   }
   return (
-    <div className="mx-auto mt-16 max-w-xl sm:mt-20">
+    <div className="mx-auto max-w-4xl sm:mt-30 shadow-2xl p-10 mr">
       <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
         create new book
       </h1>
@@ -201,7 +217,7 @@ function CreateNewBook() {
               Description
               <div className="mt-2.5">
                 <textarea
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 py-2.5 px-3.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-8"
                   type="text"
                   placeholder="Description"
                   onChange={(e) => {
@@ -313,7 +329,7 @@ function CreateNewBook() {
                   onClose={closePopup}
                   title="Add New Author"
                   inputPlaceholder="name of author"
-                  onSend={handleSend2}
+                  onSend={handleAddAuthor}
                 />
               </div>
             </label>
@@ -345,7 +361,7 @@ function CreateNewBook() {
                   onClose={closePopup}
                   title="Add New Publisher"
                   inputPlaceholder="name of the Publisher..."
-                  onSend={handleSend}
+                  onSend={handleAddPublisher}
                   required
                 />
               </div>

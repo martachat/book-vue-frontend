@@ -45,7 +45,7 @@ function GenreDetailsPage() {
     <div>
       {genreDetails ? (
         <>
-          <h2>{genreDetails.name}</h2>
+          <h2 className="text-5xl font-extrabold p-8">{genreDetails.name}</h2>
 
           {genreBooks.length > 0 ? (
             <ul
@@ -57,13 +57,18 @@ function GenreDetailsPage() {
               }}
             >
               {genreBooks.map((book) => (
-                <li key={book.id} style={{ marginRight: "20px" }}>
+                <li key={book.id} style={{ margin: "20px" }}>
                   <Link
                     to={`/books/${book.id}`}
                     style={{ textDecoration: "none", color: "inherit" }}
+                    className="flex-row "
                   >
-                    <div style={{ marginBottom: "10px" }}>
+                    <div
+                      className="w-1/2 p-4 mx-auto text-center border"
+                      style={{ marginBottom: "10px" }}
+                    >
                       <img
+                        className="m-auto"
                         src={book.image}
                         alt={book.title}
                         style={{
@@ -73,17 +78,19 @@ function GenreDetailsPage() {
                         }}
                       />
                     </div>
-                    <p style={{ fontWeight: "bold" }}>{book.title}</p>
-                    <p>
-                      By{" "}
-                      <Link
-                        to={`/authors/${book.authorId}`}
-                        style={{ textDecoration: "none", color: "inherit" }}
-                      >
-                        {book.author}
-                      </Link>
-                    </p>
-                    <p>⭐ {book.rating}</p>
+                    <div className="flex-row ">
+                      <p style={{ fontWeight: "bold" }}>{book.title}</p>
+                      <p>
+                        By{" "}
+                        <Link
+                          to={`/authors/${book.authorId}`}
+                          style={{ textDecoration: "none", color: "inherit" }}
+                        >
+                          {book.author}
+                        </Link>
+                      </p>
+                      <p>⭐ {book.rating}</p>
+                    </div>
                   </Link>
                 </li>
               ))}

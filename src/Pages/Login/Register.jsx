@@ -51,13 +51,6 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // if button enabled with JS hack
-    // const v1 = USER_REGEX.test(user);
-    // const v2 = PWD_REGEX.test(pwd);
-    // if (!v1 || !v2) {
-    //   setErrMsg("Invalid Entry");
-    //   return;
-    // }
     try {
       const response = await axios.post(
         REGISTER_URL,
@@ -98,7 +91,7 @@ const Register = () => {
           </p>
         </section>
       ) : (
-        <section className="app-login">
+        <section className="app-login mx-auto max-w-2xl sm:mt-30 shadow-2xl p-10 mr">
           <p
             ref={errRef}
             className={errMsg ? "errmsg" : "offscreen"}
@@ -107,11 +100,12 @@ const Register = () => {
             {errMsg}
           </p>
           <h1>Register</h1>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} className="form-login ">
             <label htmlFor="email">Email:</label>
             <input
               type="email"
               id="email"
+              className="email-login"
               ref={userRef}
               autoComplete="off"
               onChange={(e) => setUser(e.target.value)}
@@ -124,6 +118,7 @@ const Register = () => {
             <input
               type="text"
               id="name"
+              className="email-login"
               autoComplete="off"
               onChange={(e) => setName(e.target.value)}
               value={name}
@@ -158,11 +153,12 @@ const Register = () => {
               type="password"
               id="password"
               onChange={(e) => setPwd(e.target.value)}
+              className="password-login"
               value={pwd}
               required
               aria-invalid={validPwd ? "false" : "true"}
               aria-describedby="pwdnote"
-              onFocus={() => setPwdFocus(true)}
+              // onFocus={() => setPwdFocus(true)}
               onBlur={() => setPwdFocus(false)}
             />
             <p
@@ -198,6 +194,7 @@ const Register = () => {
               type="password"
               id="confirm_pwd"
               onChange={(e) => setMatchPwd(e.target.value)}
+              className="password-login"
               value={matchPwd}
               required
               aria-invalid={validMatch ? "false" : "true"}

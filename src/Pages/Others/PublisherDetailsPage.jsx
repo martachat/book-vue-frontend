@@ -49,44 +49,44 @@ function PublisherDetailsPage() {
   }, [id]);
 
   return (
-    <div>
+    <div className="flex-wrap">
       {publisherDetails ? (
         <>
           <h2>{publisherDetails.name}</h2>
 
           {publisherBooks.length > 0 ? (
-            <div style={{ display: "flex", flexWrap: "wrap" }}>
+            <div className="flex m-8 flex-wrap">
               {publisherBooks.map((book) => (
-                <div
-                  key={book.id}
-                  style={{ marginRight: "20px", marginBottom: "20px" }}
-                >
+                <div key={book.id} className="flex-wrap p-2 max-w-48">
                   <Link
                     to={`/books/${book.id}`}
                     style={{ textDecoration: "none", color: "inherit" }}
+                    className="flex-wrap"
                   >
-                    <img
-                      src={book.image}
-                      alt={book.title}
-                      style={{
-                        maxWidth: "100px",
-                        maxHeight: "100px",
-                        marginBottom: "5px",
-                      }}
-                    />
-                    <p style={{ fontWeight: "bold", margin: 0 }}>
-                      {book.title}
-                    </p>
-                    <p style={{ margin: 0 }}>
-                      By{" "}
-                      <Link
-                        to={`/authors/${book.authorId}`}
-                        style={{ textDecoration: "none", color: "inherit" }}
-                      >
-                        {book.author}
-                      </Link>
-                    </p>
-                    <p style={{ margin: 0 }}>⭐ {book.rating}</p>
+                    <div className="p-8 mx-auto text-center border">
+                      <img
+                        src={book.image}
+                        alt={book.title}
+                        style={{
+                          maxWidth: "100px",
+                          maxHeight: "100px",
+                          marginBottom: "5px",
+                        }}
+                      />
+                      <p style={{ fontWeight: "bold", margin: 0 }}>
+                        {book.title}
+                      </p>
+                      <p style={{ margin: 0 }}>
+                        By{" "}
+                        <Link
+                          to={`/authors/${book.authorId}`}
+                          style={{ textDecoration: "none", color: "inherit" }}
+                        >
+                          {book.author}
+                        </Link>
+                      </p>
+                      <p style={{ margin: 0 }}>⭐ {book.rating}</p>
+                    </div>
                   </Link>
                 </div>
               ))}
