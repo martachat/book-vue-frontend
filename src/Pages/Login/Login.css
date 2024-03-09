@@ -1,11 +1,11 @@
-/* .app-login {
+.app-login {
     flex-direction: column;
     justify-content: center;
     align-items: center;
     margin: 0 auto;
   }
   
-  section {
+  .app-login  {
       width: 100%;
       max-width: 420px;
       min-height: 400px;
@@ -16,7 +16,7 @@
       background-color: rgba(0,0,0,0.4);
   }
   
-  form {
+  .form-login {
       display: flex;
       flex-direction: column;
       justify-content: space-evenly;
@@ -24,14 +24,14 @@
       padding-bottom: 1rem;
   }
   
-  a, a:visited {
+  .link-login a, a:visited {
       color: #fff;
   }
   
-  input[type="text"],
-  input[type="email"],
-  input[type="password"],
-  button,
+  .username-login,
+  .email-login,
+  .password-login,
+  .btn-login,
   textarea {
     font-family: 'Nunito', sans-serif;
     font-size: 22px;
@@ -91,4 +91,4 @@
   
   .line {
       display: inline-block;
-  } */
+  }

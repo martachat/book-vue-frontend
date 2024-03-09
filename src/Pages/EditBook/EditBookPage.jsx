@@ -155,151 +155,237 @@ function EditBookPage() {
   };
 
   return (
-    <div>
-      <h2>Edit Book</h2>
-      <form>
-        <label>Title:</label>
-        <input
-          type="text"
-          name="title"
-          value={newBookData.title}
-          onChange={handleInputChange}
-        />
-        <label>Image URL:</label>
-        <input
-          type="text"
-          name="image"
-          value={newBookData.image}
-          onChange={handleInputChange}
-        />
-        <label>Pages:</label>
-        <input
-          type="number"
-          name="pages"
-          value={newBookData.pages}
-          onChange={handleInputChange}
-        />
-        <label>Publication date:</label>
-        <input
-          type="date"
-          name="publicationDate"
-          value={newBookData.publicationDate}
-          onChange={handleInputChange}
-          required
-          pattern="\d{2}-\d{2}-\d{4}"
-        />
-        <label>Description:</label>
-        <textarea
-          name="description"
-          value={newBookData.description}
-          onChange={handleInputChange}
-        />
-        <label>Author:</label>
-        <input
-          type="text"
-          name="authorId"
-          value={
-            authors.find(
-              (author) => author.id.toString() === newBookData.authorId
-            )?.name || newBookData.authorId
-          }
-          placeholder="Type author"
-          onChange={(e) => {
-            setNewBookData({ ...newBookData, authorId: e.target.value });
-            handleAuthorSearch(e.target.value);
-          }}
-        />
-
-        <div>
-          {authors
-            .filter((author) =>
-              author.name.toLowerCase().includes(newBookData.authorId)
-            )
-            .map((filteredAuthor) => (
-              <div
-                key={filteredAuthor.id}
-                onClick={() =>
-                  setNewBookData({
-                    ...newBookData,
-                    authorId: filteredAuthor.id.toString(),
-                  })
-                }
-              >
-                {filteredAuthor.name}
+    <div className="mx-auto max-w-4xl sm:mt-30 shadow-2xl p-10 mr">
+      <h2 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
+        Edit Book
+      </h2>
+      <form className="mx-auto mt-16 max-w-xl sm:mt-20">
+        <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
+          <div>
+            <label className="block text-sm font-semibold leading-6 text-gray-900">
+              Title:
+              <div className="mt-2.5">
+                <input
+                  type="text"
+                  name="title"
+                  value={newBookData.title}
+                  onChange={handleInputChange}
+                  className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
               </div>
-            ))}
-        </div>
+            </label>
+          </div>
 
-        <label>Publisher:</label>
-        <input
-          type="text"
-          name="publisherId"
-          value={
-            publishers.find(
-              (publisher) => publisher.id.toString() === newBookData.publisherId
-            )?.name || newBookData.publisherId
-          }
-          placeholder="Type publisher"
-          onChange={(e) => {
-            setNewBookData({ ...newBookData, publisherId: e.target.value });
-            handlePublisherSearch(e.target.value);
-          }}
-        />
-        <div>
-          {publishers
-            .filter((publisher) =>
-              publisher.name.toLowerCase().includes(newBookData.publisherId)
-            )
-            .map((filteredPublisher) => (
-              <div
-                key={filteredPublisher.id}
-                onClick={() =>
-                  setNewBookData({
-                    ...newBookData,
-                    publisherId: filteredPublisher.id.toString(),
-                  })
-                }
-              >
-                {filteredPublisher.name}
+          <div>
+            <label className="block text-sm font-semibold leading-6 text-gray-900">
+              Image URL:
+              <div className="mt-2.5">
+                <input
+                  type="text"
+                  name="image"
+                  value={newBookData.image}
+                  onChange={handleInputChange}
+                  className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
               </div>
-            ))}
+            </label>
+          </div>
+
+          <div>
+            <label className="block text-sm font-semibold leading-6 text-gray-900">
+              Pages:
+              <div className="mt-2.5">
+                <input
+                  type="number"
+                  name="pages"
+                  value={newBookData.pages}
+                  onChange={handleInputChange}
+                  className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
+              </div>
+            </label>
+          </div>
+
+          <div>
+            <label className="block text-sm font-semibold leading-6 text-gray-900">
+              Publication date:
+              <div className="mt-2.5">
+                <input
+                  type="date"
+                  name="publicationDate"
+                  value={newBookData.publicationDate}
+                  onChange={handleInputChange}
+                  required
+                  pattern="\d{2}-\d{2}-\d{4}"
+                  className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
+              </div>
+            </label>
+          </div>
+
+          <div className="col-span-full">
+            <label className="block text-sm font-semibold leading-6 text-gray-900">
+              Description:
+              <div className="mt-2.5">
+                <textarea
+                  className="block w-full rounded-md border-0 py-2.5 px-3.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-8"
+                  name="description"
+                  value={newBookData.description}
+                  onChange={handleInputChange}
+                />
+              </div>
+            </label>
+          </div>
+
+          <div className="flex mt-6 items-center justify-center gap-x-6">
+            <label className="block text-sm font-semibold leading-6 text-gray-900">
+              Author:
+              <div className="flex mt-6 justify-center gap-x-6">
+                <input
+                  type="text"
+                  className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  name="authorId"
+                  value={
+                    authors.find(
+                      (author) => author.id.toString() === newBookData.authorId
+                    )?.name || newBookData.authorId
+                  }
+                  placeholder="Type author"
+                  onChange={(e) => {
+                    setNewBookData({
+                      ...newBookData,
+                      authorId: e.target.value,
+                    });
+                    handleAuthorSearch(e.target.value);
+                  }}
+                />
+              </div>
+            </label>
+            <div className="flex mt-6 items-center justify-center gap-x-6">
+              {authors
+                .filter((author) =>
+                  author.name.toLowerCase().includes(newBookData.authorId)
+                )
+                .map((filteredAuthor) => (
+                  <div
+                    key={filteredAuthor.id}
+                    onClick={() =>
+                      setNewBookData({
+                        ...newBookData,
+                        authorId: filteredAuthor.id.toString(),
+                      })
+                    }
+                  >
+                    {filteredAuthor.name}
+                  </div>
+                ))}
+            </div>
+          </div>
+
+          <div className="flex mt-6 items-center justify-center gap-x-6">
+            <label className="block text-sm font-semibold leading-6 text-gray-900">
+              Publisher:
+              <div className="flex mt-6 justify-center gap-x-6">
+                <input
+                  className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  type="text"
+                  name="publisherId"
+                  value={
+                    publishers.find(
+                      (publisher) =>
+                        publisher.id.toString() === newBookData.publisherId
+                    )?.name || newBookData.publisherId
+                  }
+                  placeholder="Type publisher"
+                  onChange={(e) => {
+                    setNewBookData({
+                      ...newBookData,
+                      publisherId: e.target.value,
+                    });
+                    handlePublisherSearch(e.target.value);
+                  }}
+                />
+              </div>
+            </label>
+            <div className="flex mt-6 items-center justify-center gap-x-6">
+              {publishers
+                .filter((publisher) =>
+                  publisher.name.toLowerCase().includes(newBookData.publisherId)
+                )
+                .map((filteredPublisher) => (
+                  <div
+                    key={filteredPublisher.id}
+                    onClick={() =>
+                      setNewBookData({
+                        ...newBookData,
+                        publisherId: filteredPublisher.id.toString(),
+                      })
+                    }
+                  >
+                    {filteredPublisher.name}
+                  </div>
+                ))}
+            </div>
+          </div>
+
+          <div className="flex mt-6 items-center justify-center gap-x-6">
+            <label className="text-sm font-semibold leading-6 text-gray-900">
+              Genre:
+              <div className="flex mt-6 justify-center gap-x-6">
+                <select
+                  name="genreId"
+                  value={newBookData.genreId}
+                  onChange={handleInputChange}
+                  className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                >
+                  <option value="" disabled>
+                    Select a genre
+                  </option>
+                  {genres.map((genre) => (
+                    <option key={genre.id} value={genre.id}>
+                      {genre.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </label>
+          </div>
+
+          <div className="flex mt-6 items-center justify-center gap-x-6">
+            <label className="text-sm font-semibold leading-6 text-gray-900">
+              Language:
+              <div className="flex mt-6 justify-center gap-x-6">
+                <select
+                  name="languageId"
+                  value={newBookData.languageId}
+                  onChange={handleInputChange}
+                  className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                >
+                  <option value="" disabled>
+                    Select a language
+                  </option>
+                  {languages.map((language) => (
+                    <option key={language.id} value={language.id}>
+                      {language.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </label>
+          </div>
         </div>
-
-        <label>Genre:</label>
-        <select
-          name="genreId"
-          value={newBookData.genreId}
-          onChange={handleInputChange}
-        >
-          <option value="" disabled>
-            Select a genre
-          </option>
-          {genres.map((genre) => (
-            <option key={genre.id} value={genre.id}>
-              {genre.name}
-            </option>
-          ))}
-        </select>
-
-        <label>Language:</label>
-        <select
-          name="languageId"
-          value={newBookData.languageId}
-          onChange={handleInputChange}
-        >
-          <option value="" disabled>
-            Select a language
-          </option>
-          {languages.map((language) => (
-            <option key={language.id} value={language.id}>
-              {language.name}
-            </option>
-          ))}
-        </select>
       </form>
-      <button type="button" onClick={handleEditBook}>
-        Save Changes
-      </button>
+
+      <div className="mt-6 flex items-center justify-center gap-x-6">
+        <button
+          type="button"
+          onClick={handleEditBook}
+          className="items-center m-10 rounded-md bg-indigo-600 px-4 py-4 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+        >
+          Save Changes
+        </button>
+      </div>
+      <div className="space"></div>
     </div>
   );
 }

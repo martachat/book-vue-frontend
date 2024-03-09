@@ -118,5 +118,8 @@
 }  */
 
 .space{
-    margin-bottom: 300px;
+    margin-bottom: 20px;
+}
+.mr{
+    margin: 30px;
 }

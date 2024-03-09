@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 // import "./HomePage.css";
 import { Link, useNavigate } from "react-router-dom";
 import Banner from "../../components/Banner";
-import Button from "@mui/material/Button";
 
 // const accessToken = "";
 
@@ -107,7 +106,7 @@ function HomePage() {
         <div className="relative w-full">
           <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
             <svg
-              class="w-4 h-4 text-gray-500 dark:text-gray-400"
+              className="w-4 h-4 text-gray-500 dark:text-gray-400"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -115,10 +114,10 @@ function HomePage() {
             >
               <path
                 stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M19 19l-4-4M19 12A7 7 0 1 1 5 12a7 7 0 0 1 14 0z"
               />
             </svg>
           </div>
@@ -138,14 +137,14 @@ function HomePage() {
           <div key={item.id} className="container_home">
             <div className="container_home">
               <img src={item.image} alt={item.title} width={"300px"}></img>
-              <div className="home_text">
+              <div className="home_text p-4">
                 <Link to={`/books/${item.id}`} className="link">
-                  <h4>{item.title}</h4>{" "}
+                  <h4 className="pb-4">{item.title}</h4>{" "}
                 </Link>
                 {item.author ? (
                   <div style={{ textDecoration: "none", color: "inherit" }}>
                     <Link to={`/authors/${item.author.id}`} className="link">
-                      <p>
+                      <p className="pb-4">
                         By <strong>{item.author.name}</strong>
                       </p>
                     </Link>

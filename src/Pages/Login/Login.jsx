@@ -86,11 +86,12 @@ const Login = ({ islogedin, setIslogedin }) => {
             {errMsg}
           </p>
           <h1>Sign In</h1>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} className="form-login">
             <label htmlFor="username">Username:</label>
             <input
               type="text"
               id="username"
+              className="username-login"
               ref={userRef}
               autoComplete="off"
               onChange={(e) => setUser(e.target.value)}
@@ -102,11 +103,12 @@ const Login = ({ islogedin, setIslogedin }) => {
             <input
               type="password"
               id="password"
+              className="password-login"
               onChange={(e) => setPwd(e.target.value)}
               value={pwd}
               required
             />
-            <button>Sign In</button>
+            <button className="btn-login">Sign In</button>
           </form>
           <p>
             Need an Account?
@@ -114,7 +116,9 @@ const Login = ({ islogedin, setIslogedin }) => {
             <span className="line">
               {/*put router link here*/}
               {/* <a href="#">Sign Up</a> */}
-              <Link to={"/register"}>Sign Up</Link>
+              <Link to={"/register"} className="link-login">
+                Sign Up
+              </Link>
             </span>
           </p>
         </section>
