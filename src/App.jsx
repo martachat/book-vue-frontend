@@ -29,10 +29,18 @@ function App() {
           path="/publishers/:id"
           element={<PublisherDetailsPage />}
         ></Route>
-        <Route path="/admin" element={<HomePageAdmin />}></Route>
-        <Route path="/books/:id/edit" element={<EditBookPage />}></Route>
-        <Route path="/admin/create" element={<CreateNewBook />}></Route>
-
+        <Route
+          path="/admin"
+          element={<HomePageAdmin islogedin={islogedin} />}
+        ></Route>
+        <Route
+          path="/admin/:id/edit"
+          element={<EditBookPage islogedin={islogedin} />}
+        ></Route>
+        <Route
+          path="/admin/create"
+          element={<CreateNewBook islogedin={islogedin} />}
+        ></Route>
         <Route
           path="/login"
           element={<Login islogedin={islogedin} setIslogedin={setIslogedin} />}
