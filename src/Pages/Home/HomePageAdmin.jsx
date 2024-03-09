@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Notyf } from "notyf";
 import "notyf/notyf.min.css";
 
-function HomePageAdmin() {
+function HomePageAdmin({ islogedin }) {
   const [books, setBooks] = useState([]);
   const [book, setBook] = useState([]);
   const [author, setAuthor] = useState();
@@ -75,11 +75,10 @@ function HomePageAdmin() {
         value={searchQuery}
         onChange={handleSearch}
       />
-
-      <div className="home_page">
-        {filteredBooks.map((book) => (
-          <div key={book.id} className="container_home">
-            {book ? (
+      {islogedin ? (
+        <div className="home_page">
+          {filteredBooks.map((book) => (
+            <div key={book.id} className="container_home">
               <div className="container_home">
                 <img src={book.image} alt={book.title} width={"300px"} />
                 <div className="home_text">
@@ -99,7 +98,7 @@ function HomePageAdmin() {
                   <p>{truncate(book.description)}</p>
                 </div>
                 <div className="edit-delete-buttons">
-                  <Link to={`/books/${book.id}/edit`}>
+                  <Link to={`/admin/${book.id}/edit`}>
                     <button className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">
                       Edit Book
                     </button>
@@ -112,12 +111,17 @@ function HomePageAdmin() {
                   </button>
                 </div>
               </div>
-            ) : (
-              <p>Loading...</p>
-            )}
-          </div>
-        ))}
-      </div>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div>
+          <p>need to login...</p>
+          <Link to={"/login"}>
+            <p className="text-black underline">Login</p>
+          </Link>
+        </div>
+      )}
       {/* {success ? (
         <AlertBox className="alert" open={success}></AlertBox>
       ) : (

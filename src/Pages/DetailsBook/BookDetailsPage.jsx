@@ -116,11 +116,24 @@ function BookDetailsPage() {
             </div>
             <div className=""></div>
 
-            <Rating  total= {total} globalRatings={globalRatings} fiveP={fiveP} fourP={fourP} threeP={threeP} twoP={twoP} oneP={oneP} ></Rating>
+            <Rating
+              total={total}
+              globalRatings={globalRatings}
+              fiveP={fiveP}
+              fourP={fourP}
+              threeP={threeP}
+              twoP={twoP}
+              oneP={oneP}
+            ></Rating>
           </div>
         </>
       ) : (
-        <p>Loading...</p>
+        <div>
+          <p>need to login...</p>
+          <Link to={"/login"}>
+            <p className="text-black underline">Login</p>
+          </Link>
+        </div>
       )}
     </div>
   );
