@@ -1,0 +1,70 @@
+.home_page{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+
+.container_home{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    padding: 10px;
+    background-color: rgb(70, 70, 70);
+    margin: 10px;
+    color: #FFF;    
+}
+
+.container_home:hover {
+    background-color: #393B72;
+  }
+
+.link{
+    color: #FFF;   
+}
+.link:hover{
+    color: rgb(183, 183, 183)
+}
+
+.container_home img{
+    height: 180px;
+    width: 120px;
+    object-fit: contain;
+}
+
+.home_text{
+    max-width: 250px;
+    text-align: left;
+    padding-left: 10px;
+}
+
+.search{
+    width: 30%;
+    height: 25px;
+    margin-top: 15px;
+}
+
+.btn-home{
+    margin: 10px;
+}
+
+.add-new-book{
+   position: fixed;
+    bottom: 60px;
+    right: 40px; 
+   background-color: green;
+   width: 50px;
+   height: 50px;
+   border-radius: 25px;
+   font-size: 30px;
+   padding: 0;
+   
+}
+
+.alert{
+    position: fixed;
+    top: 160px;
+    right: 50%; 
+}
