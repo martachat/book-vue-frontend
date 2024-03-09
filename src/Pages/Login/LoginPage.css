@@ -8,11 +8,20 @@
    flex-direction: column;
    margin: auto;
    margin-top: 200px;
-   width: 600px;
+   width: 800px;
    background: #FFF;
    padding-bottom: 30px;
 }
 
+.app-login{
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    margin-top: 200px;
+    width: 800px;
+    background: #FFF;
+    padding-bottom: 30px;
+}
 .header{
     display: flex;
     flex-direction: column;
@@ -46,7 +55,7 @@
     display: flex;
     align-items: center;
     margin: auto;
-    width: 480px;
+    /* width: 480px; */
     height: 80px;
     background: #eaeaea;
     border-radius: 6px;
@@ -58,7 +67,7 @@
 
 .input input{
     height: 50px;
-    width: 400px;
+    /* width: 400px; */
     background: transparent;
     border: none;
     outline: none;
@@ -101,4 +110,9 @@
 .gray{
     background: #eaeaea;
     color: #676767;
+}
+
+.form-login{
+    margin: 10px;
+    
 }

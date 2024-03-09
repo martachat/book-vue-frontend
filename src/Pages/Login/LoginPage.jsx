@@ -23,7 +23,7 @@ function LoginPage() {
   }, [user, pwd]);
 
   return (
-    <div className="container">
+    <div className="mx-auto max-w-2xl sm:mt-30 shadow-2xl p-10 mr">
       <div className="header">
         <div className="text">{action}</div>
         <div className="underline"></div>
